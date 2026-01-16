@@ -295,6 +295,7 @@ function ChangelogModal({ onClose }: { onClose: () => void }) {
           <ul style={{ lineHeight: '1.6', listStyleType: 'disc', paddingLeft: '1.5rem', color: '#e2e8f0', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
             <li><strong>XSS Koruması:</strong> AI Chatbot modülünde kullanıcı girdileri için HTML sanitization eklendi.</li>
             <li><strong>Input Validation:</strong> Dışarıdan kod yürütülmesini engelleyen güvenlik kontrolleri artırıldı.</li>
+            <li><strong>UI Fixes:</strong> Changelog ikonları düzeltildi ve Kalite Kontrol modülü görsel yolları güncellendi.</li>
           </ul>
 
           <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

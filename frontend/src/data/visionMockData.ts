@@ -34,14 +34,14 @@ export const INSPECTION_SAMPLES: InspectionSample[] = [
     {
         id: 1,
         name: "Parça #2847 - Temiz",
-        imageUrl: '/assets/images/gear_clean.jpg',
+        imageUrl: './assets/images/gear_clean.jpg',
         detections: [], // No defects - clean part
         expectedResult: 'pass'
     },
     {
         id: 2,
         name: "Parça #2848 - Hatalı",
-        imageUrl: '/assets/images/gear_inspection.jpg',
+        imageUrl: './assets/images/gear_inspection.jpg',
         detections: [
             {
                 id: 1,
