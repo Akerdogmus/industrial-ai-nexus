@@ -102,4 +102,3 @@ Projeyi kendi bilgisayarınızda geliştirmek isterseniz:
 Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ---
-*Developed by Kerem A.*
