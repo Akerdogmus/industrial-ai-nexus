@@ -1,6 +1,6 @@
-# ACD AI Toolkit Demo Platform
+# ACD Industrial AI Nexus (AI Toolkit Demo Platform)
 
-Endüstri 4.0 AI çözümlerini potansiyel müşterilere tanıtmak için interaktif demo platformu.
+Industrial AI Nexus, endüstriyel yapay zeka çözümlerinin değerini somutlaştırmak amacıyla geliştirilen, kurulum gerektirmeyen, tarayıcı tabanlı (Client-Side) bir interaktif demo platformu
 
 ## 🚀 Hızlı Başlangıç
 
