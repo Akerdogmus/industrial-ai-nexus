@@ -1,6 +1,6 @@
-# 🏭 ACD Industrial AI Nexus
+# 🏭 Industrial AI Nexus
 
-![Industrial AI Nexus Banner](docs/fig1.png)
+![Industrial AI Nexus Banner](images/fig1.png)
 
 **Endüstriyel Yapay Zeka Çözümleri Demo Platformu**
 
@@ -83,8 +83,8 @@ Projeyi kendi bilgisayarınızda geliştirmek isterseniz:
 
 | Dashboard | Analiz |
 |-----------|--------|
-| ![Dashboard](docs/fig2.png) | ![Analysis](docs/fig3.png) |
-| ![Details](docs/fig4.png) | ![Simulation](docs/fig5.png) |
+| ![Dashboard](images/fig2.png) | ![Analysis](images/fig3.png) |
+| ![Details](images/fig4.png) | ![Simulation](images/fig5.png) |
 
 ---
 
