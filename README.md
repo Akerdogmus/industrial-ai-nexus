@@ -112,6 +112,7 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 ### 🔒 Güvenlik Güncellemesi (Hotfix)
 - **XSS Koruması:** AI Chatbot modülünde kullanıcı girişleri için `escapeHtml` sanitization katmanı eklendi.
 - **Güvenlik İyileştirmesi:** "Input Injection" engellendi.
+- **UI Fixes:** Changelog ikonları ve Kalite Kontrol modülü görsel yolları düzeltildi.
 
 ## 📢 Sürüm Notları (v1.1.0)
 ### Modül 1: Kestirimci Bakım (Predictive Maintenance) Güncellemeleri
