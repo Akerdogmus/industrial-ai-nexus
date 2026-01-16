@@ -34,14 +34,19 @@ export const INSPECTION_SAMPLES: InspectionSample[] = [
     {
         id: 1,
         name: "Parça #2847 - Temiz",
-        imageUrl: './assets/images/gear_clean.jpg',
+        // GitHub Pages serv ederken repo adını path'e eklemek gerekebilir veya base URL kullanılır.
+        // En garanti çözüm: './' kullanmak yerine tam relative path veya import ile çözmek.
+        // Ancak Vite'de public folder root '/' olarak davranır.
+        // Eğer deploy sonrası 404 alınıyorsa, base path eksik olabilir.
+        // Şimdilik './' kaldırıp tekrar '/' deneyeceğiz ama repo ismiyle.
+        imageUrl: '/industrial-ai-nexus/assets/images/gear_clean.jpg',
         detections: [], // No defects - clean part
         expectedResult: 'pass'
     },
     {
         id: 2,
         name: "Parça #2848 - Hatalı",
-        imageUrl: './assets/images/gear_inspection.jpg',
+        imageUrl: '/industrial-ai-nexus/assets/images/gear_inspection.jpg',
         detections: [
             {
                 id: 1,
