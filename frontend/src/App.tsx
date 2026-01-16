@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ShieldCheck, Zap } from 'lucide-react';
 import {
   fetchOEE, fetchCopilot
 } from './api/client';
@@ -288,7 +289,7 @@ function ChangelogModal({ onClose }: { onClose: () => void }) {
         <div className="module-content" style={{ padding: '1.5rem' }}>
 
           <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', color: '#f87171', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span className="material-icons" style={{ fontSize: '1.2rem' }}>security</span>
+            <ShieldCheck size={20} />
             Güvenlik Yaması (v1.1.1)
           </h3>
           <ul style={{ lineHeight: '1.6', listStyleType: 'disc', paddingLeft: '1.5rem', color: '#e2e8f0', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
@@ -297,7 +298,7 @@ function ChangelogModal({ onClose }: { onClose: () => void }) {
           </ul>
 
           <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span className="material-icons" style={{ fontSize: '1.2rem' }}>bolt</span>
+            <Zap size={20} />
             Modül 1: Kestirimci Bakım (v1.1.0)
           </h3>
           <ul style={{ lineHeight: '1.6', listStyleType: 'disc', paddingLeft: '1.5rem', color: '#e2e8f0', fontSize: '0.95rem' }}>
