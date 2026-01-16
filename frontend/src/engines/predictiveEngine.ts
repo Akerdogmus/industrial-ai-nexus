@@ -7,6 +7,9 @@
 export interface SimulationResult {
     expected_vibration: number;
     actual_vibration: number;
+    expected_temperature: number;
+    actual_temperature: number;
+    actual_rpm: number;
     anomaly_score: number;
     rul: number;
     root_cause: string;
@@ -84,6 +87,9 @@ export function simulatePredictiveMaintenance(
     return {
         expected_vibration: Math.round(expected_vibration * 1000) / 1000,
         actual_vibration: Math.round(vibration * 1000) / 1000,
+        expected_temperature: Math.round(expected_temperature * 10) / 10,
+        actual_temperature: Math.round(temperature * 10) / 10,
+        actual_rpm: rpm,
         anomaly_score: Math.round(anomaly_score * 100) / 100,
         rul: current_rul,
         root_cause,

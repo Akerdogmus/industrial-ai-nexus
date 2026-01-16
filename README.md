@@ -103,7 +103,14 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ---
 
-* Version: 1.0.0
+* Version: 1.1.0
 * Date: 2026-01-16
 * Developed by: A. Kerem Erdogmus
 * Contact: kereme@acd.com.tr
+
+## 📢 Sürüm Notları (v1.1.0)
+### Modül 1: Kestirimci Bakım (Predictive Maintenance) Güncellemeleri
+- **Gelişmiş Grafikler:** Titreşim analizine ek olarak **Sıcaklık (Temperature)** ve **RPM (Devir)** grafikleri eklendi.
+- **Premium 3D Model:** Makine görselleştirmesi endüstriyel standartlarda, yüksek detaylı yeni bir 3D model ile değiştirildi.
+- **Single-Screen Layout:** Tüm analiz verileri ve kontrollerin tek ekranda görülebilmesi için layout optimize edildi.
+- **UX İyileştirmeleri:** AI analiz sonuçları öne çıkarıldı, başlangıç parametreleri optimize edildi.
