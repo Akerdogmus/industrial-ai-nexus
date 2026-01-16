@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import MachineModel3D from './MachineModel3D';
 import {
     ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
@@ -142,30 +143,10 @@ const PredictiveMaintenanceModule: React.FC<PredictiveMaintenanceModuleProps> = 
                             </div>
                         </div>
 
-                        {/* 3D Model Replacement - Video */}
+                        {/* 3D Model */}
                         <div className="model-section">
                             <h3>🏭 Makine Görselleştirmesi</h3>
-                            <div className="video-container" style={{
-                                width: '100%',
-                                height: '250px',
-                                borderRadius: '12px',
-                                overflow: 'hidden',
-                                background: '#000',
-                                border: '1px solid rgba(255, 255, 255, 0.1)'
-                            }}>
-                                <video
-                                    src="/assets/videos/Futuristic_Motor_Assembly_Visualization.mp4"
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover'
-                                    }}
-                                />
-                            </div>
+                            <MachineModel3D status={status} />
                         </div>
 
                     </div>

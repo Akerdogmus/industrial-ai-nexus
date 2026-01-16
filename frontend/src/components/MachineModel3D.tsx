@@ -7,91 +7,124 @@ interface MachineModel3DProps {
     status: 'normal' | 'warning' | 'critical';
 }
 
-// Industrial Machine Model Component
+// Detailed CNC Machine Model
 function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critical' }) {
     const groupRef = useRef<THREE.Group>(null);
 
-    // Slow rotation animation
-    useFrame((_, delta) => {
+    // Color based on status
+
+
+    // Subtle vibration animation for the internal spindle
+    useFrame((state) => {
         if (groupRef.current) {
-            groupRef.current.rotation.y += delta * 0.3;
+            // Gentle idle hover or vibration
+            groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.005;
         }
     });
 
-    // Color based on status
-    const getColor = () => {
-        switch (status) {
-            case 'critical': return '#ef4444';
-            case 'warning': return '#fbbf24';
-            default: return '#4ade80';
-        }
-    };
-
-    const statusColor = getColor();
-
     return (
-        <group ref={groupRef}>
-            {/* Base Platform */}
-            <mesh position={[0, -1.2, 0]}>
-                <boxGeometry args={[3, 0.3, 2]} />
-                <meshStandardMaterial color="#374151" metalness={0.8} roughness={0.3} />
+        <group ref={groupRef} position={[0, -0.5, 0]}>
+            {/* --- ANAM GÖVDE (Main Chasis) --- */}
+            <mesh position={[0, 0, 0]} castShadow receiveShadow>
+                <boxGeometry args={[3.2, 2.2, 2]} />
+                <meshStandardMaterial color="#334155" metalness={0.6} roughness={0.2} />
             </mesh>
 
-            {/* Main Body (Motor Housing) */}
-            <mesh position={[0, 0, 0]}>
-                <cylinderGeometry args={[0.8, 0.9, 2, 32]} />
-                <meshStandardMaterial color="#6b7280" metalness={0.7} roughness={0.4} />
+            {/* --- ÖN PANEL (Front Panel & Window) --- */}
+            {/* Window Frame */}
+            <mesh position={[0, 0.2, 1.05]}>
+                <boxGeometry args={[2, 1.2, 0.1]} />
+                <meshStandardMaterial color="#1e293b" metalness={0.8} />
             </mesh>
-
-            {/* Rotating Shaft */}
-            <mesh position={[0, 0, 1.2]} rotation={[Math.PI / 2, 0, 0]}>
-                <cylinderGeometry args={[0.15, 0.15, 0.8, 16]} />
-                <meshStandardMaterial color="#9ca3af" metalness={0.9} roughness={0.2} />
-            </mesh>
-
-            {/* Status Indicator Light */}
-            <mesh position={[0, 1.2, 0]}>
-                <sphereGeometry args={[0.15, 16, 16]} />
+            {/* Safety Glass (Transparent) */}
+            <mesh position={[0, 0.2, 1.06]}>
+                <planeGeometry args={[1.8, 1]} />
                 <meshStandardMaterial
-                    color={statusColor}
-                    emissive={statusColor}
-                    emissiveIntensity={1.5}
+                    color="#a5f3fc"
+                    transparent
+                    opacity={0.3}
+                    metalness={0.9}
+                    roughness={0}
                 />
             </mesh>
 
-            {/* Cooling Fins */}
-            {[0, 1, 2, 3, 4, 5].map((i) => (
-                <mesh
-                    key={i}
-                    position={[
-                        Math.cos((i / 6) * Math.PI * 2) * 0.95,
-                        0,
-                        Math.sin((i / 6) * Math.PI * 2) * 0.95
-                    ]}
-                    rotation={[0, (i / 6) * Math.PI * 2, 0]}
-                >
-                    <boxGeometry args={[0.1, 1.5, 0.05]} />
-                    <meshStandardMaterial color="#4b5563" metalness={0.6} roughness={0.5} />
+            {/* --- İÇ MEKANİZMA (Internal Spindle & Chuck) --- */}
+            <group position={[0, 0.2, 0.5]}>
+                {/* Spindle Motor Housing */}
+                <mesh position={[-0.8, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <cylinderGeometry args={[0.4, 0.4, 1.2, 32]} />
+                    <meshStandardMaterial color="#64748b" metalness={0.8} />
                 </mesh>
-            ))}
+                {/* Chuck (Rotating Part) */}
+                <mesh position={[-0.1, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <cylinderGeometry args={[0.25, 0.3, 0.4, 16]} />
+                    <meshStandardMaterial color="#94a3b8" metalness={0.9} />
+                </mesh>
+                {/* Workpiece */}
+                <mesh position={[0.4, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <cylinderGeometry args={[0.1, 0.1, 0.8, 16]} />
+                    <meshStandardMaterial color="#d4d4d8" metalness={0.5} />
+                </mesh>
+                {/* Tool Turret */}
+                <mesh position={[0.5, -0.3, 0.3]}>
+                    <boxGeometry args={[0.4, 0.4, 0.4]} />
+                    <meshStandardMaterial color="#475569" />
+                </mesh>
+            </group>
 
-            {/* Sensor Box (Vibration) */}
-            <mesh position={[1, 0.3, 0]}>
-                <boxGeometry args={[0.25, 0.25, 0.25]} />
-                <meshStandardMaterial color="#3b82f6" metalness={0.5} roughness={0.6} />
-            </mesh>
+            {/* --- KONTROL PANELİ (HMI) --- */}
+            <group position={[1.8, 0.5, 0.8]} rotation={[0, -0.5, 0]}>
+                {/* Monitor Arm */}
+                <mesh position={[-0.2, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <cylinderGeometry args={[0.05, 0.05, 0.5, 8]} />
+                    <meshStandardMaterial color="#1f2937" />
+                </mesh>
+                {/* Screen Body */}
+                <mesh position={[0, 0, 0]}>
+                    <boxGeometry args={[0.1, 0.6, 0.8]} />
+                    <meshStandardMaterial color="#0f172a" />
+                </mesh>
+                {/* Screen Display (Glowing) */}
+                <mesh position={[-0.06, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
+                    <planeGeometry args={[0.7, 0.5]} />
+                    <meshStandardMaterial color="#0ea5e9" emissive="#0ea5e9" emissiveIntensity={0.5} />
+                </mesh>
+            </group>
 
-            {/* Sensor Box (Temperature) */}
-            <mesh position={[-1, 0.3, 0]}>
-                <boxGeometry args={[0.25, 0.25, 0.25]} />
-                <meshStandardMaterial color="#f97316" metalness={0.5} roughness={0.6} />
-            </mesh>
-
-            {/* Control Panel */}
-            <mesh position={[0.6, -0.5, 0.95]} rotation={[0.3, 0, 0]}>
-                <boxGeometry args={[0.5, 0.4, 0.05]} />
-                <meshStandardMaterial color="#1f2937" metalness={0.3} roughness={0.8} />
-            </mesh>
+            {/* --- DURUM KULESİ (Status Light Tower) --- */}
+            <group position={[1.4, 1.1, -0.8]}>
+                <mesh position={[0, 0, 0]}>
+                    <cylinderGeometry args={[0.05, 0.05, 0.4, 16]} />
+                    <meshStandardMaterial color="#cbd5e1" />
+                </mesh>
+                {/* Red Light */}
+                <mesh position={[0, 0.35, 0]}>
+                    <cylinderGeometry args={[0.08, 0.08, 0.15, 16]} />
+                    <meshStandardMaterial
+                        color={status === 'critical' ? '#ef4444' : '#7f1d1d'}
+                        emissive={status === 'critical' ? '#ef4444' : '#000'}
+                        emissiveIntensity={status === 'critical' ? 2 : 0}
+                    />
+                </mesh>
+                {/* Yellow Light */}
+                <mesh position={[0, 0.2, 0]}>
+                    <cylinderGeometry args={[0.08, 0.08, 0.15, 16]} />
+                    <meshStandardMaterial
+                        color={status === 'warning' ? '#fbbf24' : '#78350f'}
+                        emissive={status === 'warning' ? '#fbbf24' : '#000'}
+                        emissiveIntensity={status === 'warning' ? 2 : 0}
+                    />
+                </mesh>
+                {/* Green Light */}
+                <mesh position={[0, 0.05, 0]}>
+                    <cylinderGeometry args={[0.08, 0.08, 0.15, 16]} />
+                    <meshStandardMaterial
+                        color={status === 'normal' ? '#10b981' : '#064e3b'}
+                        emissive={status === 'normal' ? '#10b981' : '#000'}
+                        emissiveIntensity={status === 'normal' ? 2 : 0}
+                    />
+                </mesh>
+            </group>
         </group>
     );
 }
