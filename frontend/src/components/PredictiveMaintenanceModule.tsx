@@ -22,7 +22,7 @@ interface SimulationData {
 const PredictiveMaintenanceModule: React.FC<PredictiveMaintenanceModuleProps> = ({ onClose }) => {
     // Initial values set to produce NORMAL state (anomaly < 0.2)
     const [vibrationInput, setVibrationInput] = useState(0.5);
-    const [temperatureInput, setTemperatureInput] = useState(70);
+    const [temperatureInput, setTemperatureInput] = useState(62);
     const [rpmInput, setRpmInput] = useState(3000);
 
     const [dataHistory, setDataHistory] = useState<any[]>([]);
