@@ -201,9 +201,20 @@ const MessageBubble: React.FC<{ message: Message }> = ({ message }) => {
         ? displayedText
         : message.content;
 
+    // Prevent XSS by escaping HTML characters
+    const escapeHtml = (unsafe: string) => {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    };
+
     // Enhanced markdown parsing with proper table support
     const parseMarkdown = (text: string) => {
-        let parsed = text;
+        // Sanitize first
+        let parsed = escapeHtml(text);
 
         // Convert **bold** to <strong>
         parsed = parsed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');

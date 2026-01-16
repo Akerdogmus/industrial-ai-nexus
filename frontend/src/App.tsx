@@ -272,13 +272,95 @@ function renderIcon(iconName: string) {
 }
 
 // ============================================
+// CHANGELOG MODAL
+// ============================================
+function ChangelogModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content demo-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px', height: 'auto' }}>
+        <div className="modal-header">
+          <div>
+            <h2>📢 Sürüm Notları (v1.1.1)</h2>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>16 Ocak 2026 - Güvenlik Güncellemesi</div>
+          </div>
+          <button onClick={onClose} className="close-btn">✕</button>
+        </div>
+        <div className="module-content" style={{ padding: '1.5rem' }}>
+
+          <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', color: '#f87171', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span className="material-icons" style={{ fontSize: '1.2rem' }}>security</span>
+            Güvenlik Yaması (v1.1.1)
+          </h3>
+          <ul style={{ lineHeight: '1.6', listStyleType: 'disc', paddingLeft: '1.5rem', color: '#e2e8f0', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
+            <li><strong>XSS Koruması:</strong> AI Chatbot modülünde kullanıcı girdileri için HTML sanitization eklendi.</li>
+            <li><strong>Input Validation:</strong> Dışarıdan kod yürütülmesini engelleyen güvenlik kontrolleri artırıldı.</li>
+          </ul>
+
+          <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span className="material-icons" style={{ fontSize: '1.2rem' }}>bolt</span>
+            Modül 1: Kestirimci Bakım (v1.1.0)
+          </h3>
+          <ul style={{ lineHeight: '1.6', listStyleType: 'disc', paddingLeft: '1.5rem', color: '#e2e8f0', fontSize: '0.95rem' }}>
+            <li style={{ marginBottom: '0.5rem' }}><strong>Gelişmiş Grafikler:</strong> Titreşim analizine ek olarak <em>Sıcaklık</em> ve <em>RPM</em> grafikleri eklendi.</li>
+            <li style={{ marginBottom: '0.5rem' }}><strong>Premium 3D Model:</strong> Makine görselleştirmesi endüstriyel standartlarda tamamen yenilendi.</li>
+            <li style={{ marginBottom: '0.5rem' }}><strong>Single-Screen Layout:</strong> Tüm veriler tek ekranda. Scroll gerektirmez.</li>
+          </ul>
+
+          <div style={{ marginTop: '2rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', fontSize: '0.8rem', color: '#64748b', textAlign: 'center' }}>
+            Industrial AI Nexus v1.1.1 <br /> Developed by A. Kerem Erdogmus
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================
 // ANA UYGULAMA
 // ============================================
 function App() {
   const [activeModule, setActiveModule] = useState<ModuleType | null>(null);
+  const [showChangelog, setShowChangelog] = useState(false);
 
   return (
     <div className="app-container">
+      {/* Version Badge */}
+      <div
+        onClick={() => setShowChangelog(true)}
+        style={{
+          position: 'absolute',
+          top: '1.5rem',
+          right: '2rem',
+          background: 'rgba(255, 255, 255, 0.05)',
+          padding: '0.5rem 1rem',
+          borderRadius: '99px',
+          cursor: 'pointer',
+          fontSize: '0.85rem',
+          color: 'rgba(255, 255, 255, 0.6)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          transition: 'all 0.2s ease',
+          zIndex: 100,
+          fontWeight: 500,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem'
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+          e.currentTarget.style.color = '#fff';
+          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+          e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
+          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        }}
+      >
+        <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ade80' }}></span>
+        v1.1.1
+      </div>
+
       {/* Hero Header */}
       <section className="hero-section">
         <h1>Industrial AI Nexus</h1>
@@ -326,6 +408,9 @@ function App() {
           ? <PredictiveMaintenanceModule onClose={() => setActiveModule(null)} />
           : <DemoModal moduleId={activeModule} onClose={() => setActiveModule(null)} />
       )}
+
+      {/* Changelog Modal */}
+      {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
     </div>
   );
 }

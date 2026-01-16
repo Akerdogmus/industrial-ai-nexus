@@ -103,10 +103,15 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ---
 
-* Version: 1.1.0
+* Version: 1.1.1
 * Date: 2026-01-16
 * Developed by: A. Kerem Erdogmus
 * Contact: kereme@acd.com.tr
+
+## 📢 Sürüm Notları (v1.1.1)
+### 🔒 Güvenlik Güncellemesi (Hotfix)
+- **XSS Koruması:** AI Chatbot modülünde kullanıcı girişleri için `escapeHtml` sanitization katmanı eklendi.
+- **Güvenlik İyileştirmesi:** "Input Injection" engellendi.
 
 ## 📢 Sürüm Notları (v1.1.0)
 ### Modül 1: Kestirimci Bakım (Predictive Maintenance) Güncellemeleri
