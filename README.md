@@ -103,9 +103,7 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ---
 
-Version: 1.0.0
-
----
-
+* Version: 1.0.0
+* Date: 2026-01-16
 * Developed by: A. Kerem Erdogmus
 * Contact: kereme@acd.com.tr
