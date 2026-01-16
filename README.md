@@ -1,118 +1,105 @@
-# ACD Industrial AI Nexus (AI Toolkit Demo Platform)
+# 🏭 ACD Industrial AI Nexus
 
-Industrial AI Nexus, endüstriyel yapay zeka çözümlerinin değerini somutlaştırmak amacıyla geliştirilen, kurulum gerektirmeyen, tarayıcı tabanlı (Client-Side) bir interaktif demo platformu
+![Industrial AI Nexus Banner](docs/fig1.png)
 
-## 🚀 Hızlı Başlangıç
+**Endüstriyel Yapay Zeka Çözümleri Demo Platformu**
 
-### Windows (Kolay kullanım)
-**Çift tıklayın:** `start_demo.bat`
+Industrial AI Nexus, modern üretim tesislerinde yapay zekanın gücünü somutlaştırmak için geliştirilmiş, kurulum gerektirmeyen, tamamen tarayıcı tabanlı bir simülasyon ve görselleştirme platformudur.
 
-Demo birkaç saniye içinde tarayıcınızda otomatik açılacaktır (http://localhost:3000).
+[🌐 **CANLI DEMO İÇİN TIKLAYIN**](https://akerdogmus.github.io/industrial-ai-nexus/)
 
-Durdurmak için: Komut penceresinde **ENTER** tuşuna basın veya `stop_demo.bat` çalıştırın.
+---
 
-### Geliştirici Modu
+## ⚡ Özellikler
 
-#### Gereksinimler
-- Node.js 18+
+- **Kurulumsuz:** Tamamen Client-Side çalışır, sunucu gerektirmez.
+- **İnteraktif:** Gerçek zamanlı veri akışı ve simülasyonlar.
+- **Modern UI:** Glassmorphism, Dark Mode ve Cyberpunk estetiği.
+- **Responsive:** Tüm modern tarayıcılarla uyumlu.
 
-#### Kurulum ve Çalıştırma
-```bash
-cd frontend
-npm install
-npm run dev
-```
+## 📊 Modüller ve Senaryolar
 
-Varsayılan adres: http://localhost:3000
+Platform, endüstrinin farklı dikeylerindeki problemleri çözen 7 bağımsız modül içerir:
 
-## 📊 Demo Modülleri
+### 1. 🔍 Kestirimci Bakım (Predictive Maintenance)
+CNC tezgahlarından gelen titreşim ve sıcaklık verilerini analiz ederek arıza riskini önceden tahmin eder.
+> *Potansiyel Kazanım: Bakım maliyetlerinde %30 düşüş*
 
-| Modül | Açıklama | Potansiyel Kazanım |
-|-------|----------|-------------------|
-| **Kestirimci Bakım** | Canlı sensör simülasyonu ile arıza risk tahmini | %25-30 maliyet azaltma |
-| **Üretim Verimliliği** | OEE optimizasyonu, kuyruk teorisi, darboğaz analizi | %10-25 OEE artışı |
-| **Enerji Optimizasyonu** | Enerji ve karbon yönetimi | %22 tasarruf |
-| **Kalite & Fire** | Kalite riski tahmini | %35 fire azaltma |
-| **Üretim Planlama** | Kapasite optimizasyonu | %25 teslimat iyileştirme |
-| **Anomali Tespiti** | Erken uyarı sistemi | %94.5 doğruluk |
-| **AI Copilot** | Karar destek asistanı | %35 hız artışı |
+### 2. 🏭 Üretim Verimliliği (Digital Twin)
+Şişeleme hattının dijital ikizi üzerinde darboğazları analiz eder ve OEE (Genel Ekipman Etkinliği) optimizasyonu sağlar.
+> *Potansiyel Kazanım: %25 OEE artışı*
 
-## 🏭 Demo Senaryoları
+### 3. ⚡ Enerji Optimizasyonu
+Endüstriyel fırınların enerji tüketimini, değişen elektrik tarifelerine göre optimize ederek maliyetleri düşürür.
+> *Potansiyel Kazanım: Enerji faturasında %22 tasarruf*
 
-Her modül, endüstrinin farklı bir alanındaki spesifik bir problemi ele alan **bağımsız** bir kullanım senaryosu sunar:
+### 4. 👁️ Kalite & Fire (Computer Vision)
+Üretim hattından geçen parçaları gerçek zamanlı görüntü işleme ile denetler, hatalı ürünleri segmente eder.
+> *Potansiyel Kazanım: Hatalı üründe %99 yakalama oranı*
 
-- **Kestirimci Bakım:** CNC tezgahlarında titreşim ve sıcaklık verisi üzerinden rulman arıza tahmini.
-- **Üretim Verimliliği:** Şişeleme hattındaki darboğazların "Digital Twin" ile analizi.
-- **Enerji Optimizasyonu:** Endüstriyel bir fırının elektrik tarifesine göre akıllı yük planlaması.
-- **Kalite Kontrol:** Üretim hattından geçen metal parçaların kamera ile yüzey hatası denetimi.
-- **Üretim Planlama:** Karmaşık siparişlerin setup sürelerini minimize edecek şekilde otomatik çizelgelenmesi.
-- **Anomali Tespiti:** Yüksek frekanslı sensör verilerindeki (akım/voltaj) ani sapmaların yakalanması.
-- **AI Copilot:** Fabrika yöneticisinin doğal dil ile geçmiş üretim verilerini ve bakım raporlarını sorgulaması.
+### 5. 📅 Üretim Planlama
+Karmaşık sipariş havuzunu, makine hazırlık (setup) sürelerini minimize edecek şekilde yapay zeka ile otomatik çizelgeler.
+> *Potansiyel Kazanım: Teslimat sürelerinde %25 iyileşme*
 
-## 📁 Proje Yapısı
+### 6. 📉 Anomali Tespiti
+Yüksek frekanslı sensör verilerindeki (akım/voltaj) milisaniyelik sapmaları yakalar.
+> *Potansiyel Kazanım: %94.5 anomali tespit başarısı*
 
-```
-acd-ai-apps-catalog/
-├── start_demo.bat     # Tek tıkla çalıştır
-├── stop_demo.bat      # Durdur
-├── README.md
-└── frontend/          # React + Vite + TypeScript
-    ├── src/
-    │   ├── components/    # Modül bileşenleri
-    │   ├── engines/       # Simülasyon motorları
-    │   ├── App.tsx        # Ana uygulama
-    │   └── index.css      # Stiller
-    └── package.json
-```
+### 7. 🤖 AI Copilot
+Fabrika yöneticilerinin doğal dil ile veri tabanını sorgulamasına ve rapor almasına olanak tanır (RAG & LLM Simülasyonu).
+> *Özellik: Doğal dil ile "Geçen haftaki duruşların sebebi neydi?" diye sorabilme.*
 
-## 🛠️ Teknolojiler
+---
 
-- **Frontend:** React 19, TypeScript, Vite, Recharts, Framer Motion
-- **Simülasyon:** Tamamen frontend tarafında TypeScript ile
-- **Tasarım:** Modern glassmorphism, dark theme, cyberpunk industrial UI
+## � Kurulum ve Çalıştırma
 
-## ✨ Öne Çıkan Özellikler
+### 🌐 Canlı Kullanım (Önerilen)
+Hiçbir şey kurmanıza gerek yok. Doğrudan tarayıcınızdan erişin:
+**[https://akerdogmus.github.io/industrial-ai-nexus/](https://akerdogmus.github.io/industrial-ai-nexus/)**
 
-### Kestirimci Bakım Modülü
-- Canlı sensör veri akışı simülasyonu
-- Risk seviyesi hesaplama
-- Predictive insights
+### 💻 Yerel Geliştirme (Localhost)
 
-### Üretim Verimliliği Modülü (Digital Twin)
-- Animasyonlu parçacık akışı
-- OEE gauge göstergesi
-- Darboğaz tespiti ve görselleştirme
-- AI optimizasyon önerileri
-- Kuyruk teorisi simülasyonu
+Projeyi kendi bilgisayarınızda geliştirmek isterseniz:
 
-### Enerji Optimizasyonu Modülü
-- Akıllı fırın yük planlama simülasyonu
-- Tarife bazlı maliyet hesaplama
-- İnteraktif 24 saatlik ısı haritası
-- Karbon ayak izi takibi
+1. **Repoyu klonlayın:**
+   ```bash
+   git clone https://github.com/Akerdogmus/industrial-ai-nexus.git
+   cd industrial-ai-nexus
+   ```
 
-### Kalite & Fire Modülü (Computer Vision)
-- Konveyör bant simülasyonu
-- Çoklu görsel denetimi (Hatalı/Temiz parça)
-- Gerçek zamanlı maskeleme animasyonu
-- Hata segmentasyonu
+2. **Bağımlılıkları yükleyin ve başlatın:**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
-### Üretim Planlama Modülü
-- İnteraktif Gantt şeması
-- Manuel vs AI planlama karşılaştırması
-- Setup süresi minimizasyonu
-- Dinamik iş emri yönetimi
+3. **Alternatif (Windows):**
+   Ana dizindeki `start_demo.bat` dosyasına çift tıklayın.
 
-### Anomali Tespiti Modülü
-- Gerçek zamanlı sinyal analizi
-- Gürültü ve anomali enjeksiyonu
-- Eşik değeri aşımı görselleştirme
-- Titreşim ve sıcaklık korelasyonu
+---
 
-### AI Copilot
-- RAG (Retrieval-Augmented Generation) simülasyonu
-- Doğal dil işleme arayüzü
-- Kaynak gösterme (Citation) ve güven skorları
-- Düşünme adımları animasyonu (Chain of Thought)
-- Dinamik grafik çizimi ve raporlama
-- Typewriter efekti ve Markdown desteği
+## 📷 Galeri
+
+| Dashboard | Analiz |
+|-----------|--------|
+| ![Dashboard](docs/fig2.png) | ![Analysis](docs/fig3.png) |
+| ![Details](docs/fig4.png) | ![Simulation](docs/fig5.png) |
+
+---
+
+## 🛠️ Teknoloji Yığını
+
+- **Frontend:** React 19, TypeScript, Vite
+- **Görselleştirme:** Recharts, Framer Motion, Lucide React
+- **Stil:** CSS Variables, Glassmorphism, HSL Color Palette
+- **Simülasyon:** Pure TypeScript Logic Engines
+
+---
+
+## 📝 Lisans
+
+Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
+
+---
+*Developed by Kerem A.*
