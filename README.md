@@ -102,3 +102,10 @@ Projeyi kendi bilgisayarınızda geliştirmek isterseniz:
 Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ---
+
+Version: 1.0.0
+
+---
+
+* Developed by: A. Kerem Erdogmus
+* Contact: kereme@acd.com.tr
