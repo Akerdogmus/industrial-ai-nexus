@@ -38,11 +38,11 @@ Endüstriyel fırınların enerji tüketimini, değişen elektrik tarifelerine g
 > *Potansiyel Kazanım: Hatalı üründe %99 yakalama oranı*
 
 ### 5. 📅 Üretim Planlama
-Karmaşık sipariş havuzunu, makine hazırlık (setup) sürelerini minimize edecek şekilde yapay zeka ile otomatik çizelgeler.
+Karmaşık sipariş havuzunu, makine hazırlık (setup) sürelerini minimize edecek şekilde yapay zeka ile otomatik çizelgeler. AI'nın EDD algoritmasıyla optimizasyon sürecini adım adım gösterir.
 > *Potansiyel Kazanım: Teslimat sürelerinde %25 iyileşme*
 
 ### 6. 📉 Anomali Tespiti
-Yüksek frekanslı sensör verilerindeki (akım/voltaj) milisaniyelik sapmaları yakalar.
+Basınç, sıcaklık ve titreşim sensörlerinden gelen yüksek frekanslı verilerdeki istatistiksel sapmaları Z-Score tabanlı hibrit algoritmayla gerçek zamanlı tespit eder.
 > *Potansiyel Kazanım: %94.5 anomali tespit başarısı*
 
 ### 7. 🤖 AI Copilot
@@ -103,10 +103,44 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ---
 
-* Version: 1.1.1
-* Date: 2026-01-16
+* Version: 2.0.0
+* Date: 2026-04-07
 * Developed by: A. Kerem Erdogmus
 * Contact: kereme@acd.com.tr
+
+## 📢 Sürüm Notları (v2.0.0)
+### 🚀 Büyük Güncelleme — Modül Yeniden Tasarımı
+
+#### 👁️ Kalite Kontrol (Computer Vision) — Tam Yenileme
+- **Oturum İstatistik Çubuğu:** Taranan/kabul edilen/fire parça sayısı ve geçiş oranı her taramada canlı güncellenir.
+- **Eşik Presetleri:** "Hassas / Dengeli / Kesin" modları tek tıkla anomali eşiğini ayarlar.
+- **Şiddet Göstergesi (Severity Gauge):** Tespit edilen anomalilerin ağırlıklı şiddet skorunu renkli bar ile gösterir.
+- **Güven Çubukları:** Her tespit kalemi için ayrı `confidence` yüzdesi görseli.
+- **Çıkarım Süresi:** YOLOv8-nano GPU çıkarım süresini gerçekçi ms değerleriyle (28–72ms) gösterir.
+- **Tarama Kapısı (Scan Gate):** İstatistikler ve tespit kutucukları yalnızca lazer taraması tamamlandıktan sonra görünür.
+- **2 Yeni Örnek Parça:** Minör ve kritik hata senaryoları için ek demo parçaları eklendi.
+
+#### 📅 Üretim Planlama — Tam Yenileme
+- **AI Akıl Yürütme Animasyonu:** "AI ile Çizelgele" butonuna basıldığında 5 adımlı staggered reasoning panel açılır.
+- **Önce/Sonra KPI Sayaçları:** Optimizasyon öncesi ve sonrası OTD, Makespan, Doluluk değerleri animasyonlu sayaçlarla karşılaştırılır.
+- **Optimizasyon Özet Kartı:** Tüm iyileştirmeleri özet hâlinde gösteren slide-in kart.
+- **Termin İşaretçileri:** Gantt çizelgesinde her sipariş için kırmızı/yeşil termin üçgenleri.
+- **Makine Doluluk Çubukları:** Her makine satırında yüzdelik kullanım bar göstergesi.
+- **Boşluk Blokları:** Makineler arası plansız duruş sürelerini taralı blok olarak görselleştirir.
+- **"ŞİMDİ" Çizgisi:** Güncel saati Gantt üzerinde animasyonlu pulse ile işaretler.
+- **Sipariş Çizelgesi Tablosu:** Gantt altında 8 sütunlu sipariş detay tablosu.
+- **Sipariş Havuzu:** Sol sidebar'dan çizelge altına taşındı; yatay chip listesi olarak gösterilir.
+- **Layout Optimizasyonu:** 280px sabit sidebar | 1fr Gantt iki sütun grid düzeni; scroll yok.
+
+#### 📉 Anomali Tespiti — Tam Yenileme
+- **Çok-Sensör Desteği:** Basınç (MPa), Sıcaklık (°C) ve Titreşim (mm/s) sensörleri arasında anlık geçiş; her sensörün kendine özel sinyal karakteri, rengi ve eşiği vardır.
+- **Anomali Zaman Şeridi:** Grafik altında 60 saniyelik ısı haritası bant; yeşil/sarı/kırmızı segmentler geçmiş anomali yoğunluğunu gösterir.
+- **AI Akıl Yürütme Animasyonu:** Anomali tespitinde sensör + bozucu türüne özel 3 adımlı staggered reasoning panel.
+- **Güven Göstergesi:** Header'da anlık güven skoru widget'ı (yeşil → sarı → kırmızı geçiş).
+- **Canlı Küme Animasyonu:** Recharts scatter yerine özel SVG + Framer Motion; anomali noktaları merkezdeyken dışarı fade-in ederek fırlar.
+- **Yapılandırılmış Olay Listesi:** Terminal log yerine kart tabanlı anomali kayıt listesi; zaman, sensör, Düşük/Orta/Kritik şiddet etiketi ve skor çubuğu içerir.
+
+---
 
 ## 📢 Sürüm Notları (v1.1.1)
 ### 🔒 Güvenlik Güncellemesi (Hotfix)

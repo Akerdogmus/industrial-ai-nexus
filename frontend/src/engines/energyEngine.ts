@@ -179,6 +179,53 @@ export function createInitialEnergyState(): EnergyState {
 }
 
 /**
+ * Zone-specific emission factors (kg CO₂ / kWh)
+ * Night: more renewable (hydro, wind) → lower carbon
+ * Peak: gas/coal turbines spin up → higher carbon
+ */
+export const ZONE_EMISSION_FACTORS: Record<string, number> = {
+    night: 0.25,
+    peak: 0.55,
+    evening: 0.40,
+};
+
+/**
+ * Calculate carbon footprint based on the hours actually used (zone-aware).
+ * Peak-hour electricity is ~2× dirtier than night-hour electricity.
+ */
+export function calculateTimedCarbonFootprint(startHour: number, duration: number, powerKW: number): number {
+    let total = 0;
+    for (let i = 0; i < duration; i++) {
+        const h = (startHour + i) % 24;
+        total += powerKW * ZONE_EMISSION_FACTORS[TARIFF_RATES[h].zone];
+    }
+    return Math.round(total);
+}
+
+/**
+ * Planning Score: how close the current schedule is to the theoretical optimum.
+ * 100 = perfectly scheduled (minimum possible cost given the deadline)
+ *   0 = worst possible scheduling (most expensive time slot)
+ */
+export function calculatePlanningScore(
+    startHour: number,
+    duration: number,
+    powerKW: number,
+    deadline: number,
+): number {
+    const actualCost = calculateCost(startHour, duration, powerKW);
+    const optimalStart = findOptimalStartHour(duration, deadline);
+    const bestCost = calculateCost(optimalStart, duration, powerKW);
+    const worstCost = Math.max(
+        ...Array.from({ length: 24 }, (_, h) => calculateCost(h, duration, powerKW)),
+    );
+    if (worstCost <= bestCost) return 100;
+    return Math.max(0, Math.min(100, Math.round(
+        100 - ((actualCost - bestCost) / (worstCost - bestCost)) * 100,
+    )));
+}
+
+/**
  * Format currency for display
  */
 export function formatCurrency(amount: number): string {

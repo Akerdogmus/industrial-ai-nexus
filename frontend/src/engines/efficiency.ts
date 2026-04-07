@@ -20,7 +20,11 @@ export interface ProductionLineState {
 }
 
 /**
- * Creates initial production line with 3 stations
+ * Creates initial production line in a deliberately unoptimized state.
+ *
+ * Scenario: Kesim çok hızlı (95%) → Montaj dar boğaz (35%) → Paketleme aç kalıyor (88%)
+ *   - Montaj tamponu dolmuş (70%) — upstream baskısı görünür
+ *   - OEE ≈ 30 % (Düşük) — "Otomatik Optimize Et" ile 80 %'e çıkarmak dramatik etki yaratır
  */
 export function createInitialState(): ProductionLineState {
     return {
@@ -28,7 +32,7 @@ export function createInitialState(): ProductionLineState {
             {
                 id: 'cutting',
                 name: 'Kesim',
-                speed: 70,
+                speed: 95,          // Çok hızlı → Montaj tamponunu dolduruyor
                 bufferIn: 0,
                 bufferCapacity: 50,
                 processed: 0,
@@ -36,15 +40,15 @@ export function createInitialState(): ProductionLineState {
             {
                 id: 'assembly',
                 name: 'Montaj',
-                speed: 70,
-                bufferIn: 0,
+                speed: 35,          // Darboğaz — tüm hattı kısıtlıyor
+                bufferIn: 35,       // Tampon %70 dolu — görsel uyarı
                 bufferCapacity: 50,
                 processed: 0,
             },
             {
                 id: 'packing',
                 name: 'Paketleme',
-                speed: 70,
+                speed: 88,          // Hızlı ama malzeme gelmiyor → açlık
                 bufferIn: 0,
                 bufferCapacity: 50,
                 processed: 0,
@@ -67,6 +71,9 @@ export function processTick(state: ProductionLineState): ProductionLineState {
 
     // Clone stations to maintain immutability
     const newStations = stations.map(s => ({ ...s }));
+
+    // Track last station's processed count BEFORE this tick
+    const lastStationPrevProcessed = stations[stations.length - 1].processed;
 
     // Process from last station to first (pull-based flow)
     for (let i = newStations.length - 1; i >= 0; i--) {
@@ -107,9 +114,11 @@ export function processTick(state: ProductionLineState): ProductionLineState {
         }
     }
 
-    // Count finished products from last station
+    // FIX: Count only items actually processed by last station this tick,
+    // NOT its theoretical capacity (which over-counts when buffer is starved)
     const lastStation = newStations[newStations.length - 1];
-    const newTotalProduced = totalProduced + Math.floor(lastStation.speed / 10);
+    const producedThisTick = lastStation.processed - lastStationPrevProcessed;
+    const newTotalProduced = totalProduced + producedThisTick;
 
     return {
         stations: newStations,
@@ -135,19 +144,26 @@ export function updateStationSpeed(
 }
 
 /**
- * Auto-optimize: Balance all stations to a uniform speed
- * This clears bottlenecks by ensuring no station is faster than others
+ * Auto-optimize: Set each station to the OEE-optimal speed band (85 %).
+ *
+ * Why 85 %?  OEE = Availability × Performance × Quality.
+ * All three factors form a concave curve — peak is at ~85 % slider:
+ *   - Below 85 %: Performance (throughput) is the limiting factor
+ *   - Above 85 %: Availability and Quality degrade faster than Performance gains
+ *
+ * Upstream station runs 2 % faster → maintains a small healthy buffer
+ * (~15-25 %) between stations, preventing starvation bursts without overflow.
  */
 export function autoOptimize(state: ProductionLineState): ProductionLineState {
-    // Set all to 80% (balanced, efficient throughput)
-    const balancedSpeed = 80;
+    const OPTIMAL_SPEED = 85;
 
     return {
         ...state,
-        stations: state.stations.map(s => ({
+        stations: state.stations.map((s, i) => ({
             ...s,
-            speed: balancedSpeed,
-            bufferIn: 0, // Clear buffers when optimizing
+            // Upstream gets +2 % to pre-fill buffer; last station is the pace-setter
+            speed: OPTIMAL_SPEED + (state.stations.length - 1 - i) * 2,
+            bufferIn: 0,
         })),
     };
 }
@@ -195,41 +211,85 @@ export function isStarved(station: Station, stationIndex: number): boolean {
 }
 
 /**
+ * OEE Breakdown — the three individual factors plus the composite score.
+ */
+export interface OEEBreakdown {
+    oee: number;          // 0-100 integer
+    availability: number; // 0-100 integer (%)
+    performance: number;  // 0-100 integer (%)
+    quality: number;      // 0-100 integer (%)
+}
+
+/**
+ * Calculate OEE with a concave model — OEE peaks sharply at the 85 % sweet-spot.
+ *
+ * Demo calibration targets:
+ *   85 % (auto-optimize) → OEE ≈ 80 %  "Dünya Sınıfı"  ✓ impressive result
+ *   80 % (balanced)      → OEE ≈ 76 %  "İyi"
+ *   100 % (all max)      → OEE ≈ 43 %  "Düşük"          ✗ clear problem shown
+ *
+ * Why the concave curve?
+ *   - Performance (P): throughput scales linearly with speed (bounded by bottleneck)
+ *   - Availability (A): above 85 % machines overheat → parabolic breakdown increase
+ *   - Quality (Q): above 85 % less inspection time → parabolic defect rate rise
+ *   A × Q drops faster than P rises once you exceed 85 %, making OEE fall.
+ *
+ * OEE bands for this factory:
+ *   ≥ 78 %  → Dünya Sınıfı  (≈ 83–90 % speed window)
+ *   ≥ 63 %  → İyi
+ *   ≥ 45 %  → Orta
+ *   <  45 % → Düşük
+ */
+export function calculateOEEBreakdown(stations: Station[]): OEEBreakdown {
+    if (stations.length === 0) return { oee: 0, availability: 0, performance: 0, quality: 0 };
+
+    const minSpeedPct = Math.min(...stations.map(s => s.speed));
+    const maxSpeedPct = Math.max(...stations.map(s => s.speed));
+    const avgSpeedRatio = stations.reduce((sum, s) => sum + s.speed, 0) / stations.length / 100;
+    const hasRealBottleneck = (maxSpeedPct - minSpeedPct) >= 15;
+
+    // ── PERFORMANCE — Queue Theory: throughput = slowest station ─────────────
+    const performancePct = Math.round(minSpeedPct);  // 1:1 with slider (no artificial ceiling)
+
+    // ── AVAILABILITY — parabolic stress penalty above 85 % average speed ──────
+    // Physical model: thermal expansion, bearing wear, unplanned stops spike above 85 %
+    //   At avg = 85 %: A = 97 %   (peak — optimal band)
+    //   At avg = 90 %: A ≈ 93 %   At avg = 95 %: A ≈ 81 %   At avg = 100 %: A ≈ 60 %
+    const K_AVAIL = 16.4;
+    const availStress = Math.max(0, avgSpeedRatio - 0.85);
+    let availabilityRaw = Math.max(0.40, 0.97 - availStress * availStress * K_AVAIL);
+    // Bottleneck: chronically starved downstream stations lose additional run-time
+    if (hasRealBottleneck) {
+        const bottleneckIdx = stations.findIndex(s => s.speed === minSpeedPct);
+        for (let i = bottleneckIdx + 1; i < stations.length; i++) {
+            if (getBufferPercentage(stations[i]) < 10) availabilityRaw -= 0.05;
+        }
+        availabilityRaw = Math.max(0.40, availabilityRaw);
+    }
+    const availabilityPct = Math.round(availabilityRaw * 100);
+
+    // ── QUALITY — parabolic defect penalty above 85 % average speed ───────────
+    // Physical model: faster cycle → less inspection time → more escaped defects
+    //   At avg = 85 %: Q = 98 %   At avg = 90 %: Q ≈ 95 %   At avg = 100 %: Q ≈ 72 %
+    const K_QUAL = 11.6;
+    const qualStress = Math.max(0, avgSpeedRatio - 0.85);
+    const qualityRaw = Math.max(0.70, 0.98 - qualStress * qualStress * K_QUAL);
+    const qualityPct = Math.round(
+        (hasRealBottleneck ? Math.max(0.70, qualityRaw - 0.015) : qualityRaw) * 100
+    );
+
+    const oee = Math.round(
+        (availabilityPct / 100) * (performancePct / 100) * (qualityPct / 100) * 100
+    );
+
+    return { oee, availability: availabilityPct, performance: performancePct, quality: qualityPct };
+}
+
+/**
  * Calculate OEE (Overall Equipment Effectiveness) percentage
- * Simplified calculation based on station speeds and buffer states
- * OEE = Availability × Performance × Quality
- * For simulation: we use average speed as performance, and buffer efficiency as availability
  */
 export function calculateOEE(stations: Station[]): number {
-    if (stations.length === 0) return 0;
-
-    // Performance: average of all station speeds
-    const avgSpeed = stations.reduce((sum, s) => sum + s.speed, 0) / stations.length;
-    const performance = avgSpeed / 100;
-
-    // Availability: based on buffer health (not starved, not overflowing)
-    let availabilityScore = 0;
-    for (let i = 0; i < stations.length; i++) {
-        const station = stations[i];
-        const bufferPercent = getBufferPercentage(station);
-
-        // Station is fully available if buffer is in healthy range (20-80%)
-        if (i === 0) {
-            availabilityScore += 1; // First station always available
-        } else if (bufferPercent > 10 && bufferPercent < 80) {
-            availabilityScore += 1;
-        } else if (bufferPercent <= 10) {
-            availabilityScore += 0.5; // Partially available (starving risk)
-        } else {
-            availabilityScore += 0.7; // Partially available (congestion risk)
-        }
-    }
-    const availability = availabilityScore / stations.length;
-
-    // Quality: assume 98% for simulation (fixed)
-    const quality = 0.98;
-
-    return Math.round(availability * performance * quality * 100);
+    return calculateOEEBreakdown(stations).oee;
 }
 
 /**
@@ -311,13 +371,27 @@ export function getAIRecommendation(state: ProductionLineState): string {
             `Öneri: Önceki istasyonların hızını artırın veya darboğazı giderin.`;
     }
 
-    // Default recommendation
+    // Balanced line — check if speed is in the optimal band
     const avgSpeed = stations.reduce((sum, s) => sum + s.speed, 0) / stations.length;
-    if (avgSpeed < 70) {
-        return `Analiz: Ortalama hat hızı düşük (%${Math.round(avgSpeed)}). ` +
-            `Öneri: Tüm istasyonları %80 hıza dengelemek için "Otomatik Optimize Et" butonunu kullanın.`;
+    const minSpd = Math.min(...stations.map(s => s.speed));
+    const maxSpd = Math.max(...stations.map(s => s.speed));
+    const isBalanced = (maxSpd - minSpd) < 15;
+
+    if (isBalanced && avgSpeed > 87) {
+        return `Analiz: Hat %${Math.round(avgSpeed)} hızda dengeli çalışıyor ancak makine stresi kritik seviyede. ` +
+            `Öneri: Yüksek hız kalite kaybına ve planlanmamış duruşlara neden olur — optimal bant %83-87 arasındadır.`;
     }
 
-    return `Analiz: Hat dengeli ancak ${bottleneck.name} en yavaş istasyon. ` +
-        `Öneri: Bu istasyonun hızını artırarak toplam verimi yükseltebilirsiniz.`;
+    if (isBalanced && avgSpeed >= 82 && avgSpeed <= 87) {
+        return `Analiz: Hat optimal hız bandında (%${Math.round(avgSpeed)}) dengeli çalışıyor. ` +
+            `OEE maksimum seviyede — mevcut ayarlar dünya sınıfı performansı destekliyor.`;
+    }
+
+    if (avgSpeed < 70) {
+        return `Analiz: Ortalama hat hızı düşük (%${Math.round(avgSpeed)}). ` +
+            `Öneri: Optimal verimlilik için "Otomatik Optimize Et" butonu ile %85 bandına geçin.`;
+    }
+
+    return `Analiz: Hat dengeli (%${Math.round(avgSpeed)} ort.) ancak optimal %83-87 bandının dışında. ` +
+        `Öneri: "Otomatik Optimize Et" ile OEE'yi maksimize edin.`;
 }

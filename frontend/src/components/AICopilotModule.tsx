@@ -88,29 +88,42 @@ const SourceBadge: React.FC<{
 
     if (sourceType === 'system') return null;
 
+    const subItems = [
+        <div key="main" className="source-main">
+            <span className="source-icon">{getIcon()}</span>
+            <span className="source-type">{getTypeLabel()}</span>
+            <span className="source-name">{source}</span>
+        </div>,
+        <div key="meta" className="source-meta">
+            <span className={`confidence-score ${confidence >= 90 ? 'high' : confidence >= 70 ? 'medium' : 'low'}`}>
+                Güven: {confidence}%
+            </span>
+        </div>,
+        ...(actionTaken ? [
+            <div key="action" className="source-action">
+                <Sparkles size={12} />
+                <span>{actionTaken}</span>
+            </div>
+        ] : []),
+    ];
+
     return (
         <motion.div
             className="copilot-source-badge"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ duration: 0.3 }}
         >
-            <div className="source-main">
-                <span className="source-icon">{getIcon()}</span>
-                <span className="source-type">{getTypeLabel()}</span>
-                <span className="source-name">{source}</span>
-            </div>
-            <div className="source-meta">
-                <span className={`confidence-score ${confidence >= 90 ? 'high' : confidence >= 70 ? 'medium' : 'low'}`}>
-                    Güven: {confidence}%
-                </span>
-            </div>
-            {actionTaken && (
-                <div className="source-action">
-                    <Sparkles size={12} />
-                    <span>{actionTaken}</span>
-                </div>
-            )}
+            {subItems.map((item, i) => (
+                <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.1, duration: 0.25 }}
+                >
+                    {item}
+                </motion.div>
+            ))}
         </motion.div>
     );
 };

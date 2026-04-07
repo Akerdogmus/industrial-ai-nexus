@@ -1,10 +1,58 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
-interface MachineModel3DProps {
-    status: 'normal' | 'warning' | 'critical';
+// Spark Particles (warning/critical)
+function SparkParticles({ active }: { active: boolean }) {
+    const particlesRef = useRef<THREE.InstancedMesh>(null);
+    const particles = useRef(
+        Array.from({ length: 20 }, () => ({
+            x: (Math.random() - 0.5) * 0.4,
+            y: 1.5 + Math.random() * 0.3,
+            z: (Math.random() - 0.5) * 0.4,
+            vx: (Math.random() - 0.5) * 0.04,
+            vy: Math.random() * 0.06 + 0.02,
+            vz: (Math.random() - 0.5) * 0.04,
+            life: Math.random(),
+            speed: 0.8 + Math.random() * 0.8,
+        }))
+    );
+
+    useFrame((_, delta) => {
+        if (!particlesRef.current || !active) return;
+        const dummy = new THREE.Object3D();
+        particles.current.forEach((p, i) => {
+            p.life += delta * p.speed;
+            if (p.life > 1) {
+                p.life = 0;
+                p.x = (Math.random() - 0.5) * 0.4;
+                p.y = 1.5;
+                p.z = (Math.random() - 0.5) * 0.4;
+                p.vx = (Math.random() - 0.5) * 0.04;
+                p.vy = Math.random() * 0.06 + 0.02;
+                p.vz = (Math.random() - 0.5) * 0.04;
+            }
+            p.x += p.vx;
+            p.y += p.vy;
+            p.z += p.vz;
+            p.vy -= 0.002;
+            const scale = (1 - p.life) * 0.04;
+            dummy.position.set(p.x, p.y, p.z);
+            dummy.scale.setScalar(Math.max(0, scale));
+            dummy.updateMatrix();
+            particlesRef.current!.setMatrixAt(i, dummy.matrix);
+        });
+        particlesRef.current.instanceMatrix.needsUpdate = true;
+    });
+
+    if (!active) return null;
+    return (
+        <instancedMesh ref={particlesRef} args={[undefined, undefined, 20]}>
+            <sphereGeometry args={[1, 4, 4]} />
+            <meshStandardMaterial color="#f59e0b" emissive="#f59e0b" emissiveIntensity={3} />
+        </instancedMesh>
+    );
 }
 
 // Premium CNC Machine Model
@@ -12,15 +60,18 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
     const groupRef = useRef<THREE.Group>(null);
     const spindleRef = useRef<THREE.Mesh>(null);
 
+    const spindleSpeed = status === 'critical' ? 12 : status === 'warning' ? 8 : 5;
+    const vibrationAmp = status === 'critical' ? 0.006 : status === 'warning' ? 0.003 : 0.0005;
+
     // Spindle Rotation Animation
     useFrame((state, delta) => {
         if (spindleRef.current) {
-            // Rotate based on status
-            spindleRef.current.rotation.y += delta * 5;
+            spindleRef.current.rotation.y += delta * spindleSpeed;
         }
         if (groupRef.current) {
-            // Micro vibration for "alive" feel
-            groupRef.current.position.y = -0.6 + Math.sin(state.clock.elapsedTime * 10) * 0.0005;
+            // Micro vibration intensity based on status
+            groupRef.current.position.y = -0.6 + Math.sin(state.clock.elapsedTime * 10) * vibrationAmp;
+            groupRef.current.position.x = Math.sin(state.clock.elapsedTime * 13) * vibrationAmp * 0.5;
         }
     });
 
@@ -182,11 +233,17 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
     );
 }
 
-const MachineModel3D: React.FC<MachineModel3DProps> = ({ status }) => {
+interface MachineModel3DProps {
+    status: 'normal' | 'warning' | 'critical';
+    height?: string;
+}
+
+const MachineModel3D: React.FC<MachineModel3DProps> = ({ status, height = '250px' }) => {
     return (
         <div style={{
             width: '100%',
-            height: '250px',
+            height,
+            minHeight: '180px',
             background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
             borderRadius: '12px',
             overflow: 'hidden',
@@ -215,10 +272,19 @@ const MachineModel3D: React.FC<MachineModel3DProps> = ({ status }) => {
                 />
                 <pointLight position={[-3, 2, -3]} intensity={1} color="#3b82f6" />
 
-                {/* Environment Reflections (Simulated) */}
-                <fog attach="fog" args={['#0f172a', 5, 20]} />
+                {/* Environment & Fog */}
+                <Environment preset="warehouse" />
+                <fog attach="fog" args={['#0f172a', 6, 22]} />
+                <ContactShadows
+                    position={[0, -1.65, 0]}
+                    opacity={0.4}
+                    scale={8}
+                    blur={2}
+                    far={4}
+                />
 
                 <IndustrialMachine status={status} />
+                <SparkParticles active={status === 'warning' || status === 'critical'} />
 
                 <OrbitControls
                     enableZoom={true}

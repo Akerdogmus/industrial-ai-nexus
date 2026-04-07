@@ -34,19 +34,14 @@ export const INSPECTION_SAMPLES: InspectionSample[] = [
     {
         id: 1,
         name: "Parça #2847 - Temiz",
-        // GitHub Pages serv ederken repo adını path'e eklemek gerekebilir veya base URL kullanılır.
-        // En garanti çözüm: './' kullanmak yerine tam relative path veya import ile çözmek.
-        // Ancak Vite'de public folder root '/' olarak davranır.
-        // Eğer deploy sonrası 404 alınıyorsa, base path eksik olabilir.
-        // Şimdilik './' kaldırıp tekrar '/' deneyeceğiz ama repo ismiyle.
-        imageUrl: '/industrial-ai-nexus/assets/images/gear_clean.jpg',
-        detections: [], // No defects - clean part
+        imageUrl: '/assets/images/gear_clean.jpg',
+        detections: [],
         expectedResult: 'pass'
     },
     {
         id: 2,
         name: "Parça #2848 - Hatalı",
-        imageUrl: '/industrial-ai-nexus/assets/images/gear_inspection.jpg',
+        imageUrl: '/assets/images/gear_inspection.jpg',
         detections: [
             {
                 id: 1,
@@ -77,6 +72,72 @@ export const INSPECTION_SAMPLES: InspectionSample[] = [
                 type: "noise",
                 description: "Hafif yüzey çizikleri - Kabul edilebilir tolerans içinde",
                 area: "22.8mm²"
+            }
+        ],
+        expectedResult: 'reject'
+    },
+    {
+        id: 3,
+        name: "Parça #2849 - Minör Hata",
+        imageUrl: '/assets/images/gear_clean.jpg',
+        detections: [
+            {
+                id: 4,
+                label: "Eksik Diş",
+                labelEn: "Missing Tooth",
+                confidence: 0.88,
+                box: { top: 12, left: 60, width: 15, height: 18 },
+                type: "minor",
+                description: "Dişli üzerinde kırık/eksik diş - Titreşim seviyesini artırabilir",
+                area: "31.5mm²"
+            },
+            {
+                id: 5,
+                label: "Yağ Kalıntısı",
+                labelEn: "Oil Residue",
+                confidence: 0.41,
+                box: { top: 55, left: 25, width: 20, height: 16 },
+                type: "noise",
+                description: "İşlem yağı kalıntısı - Temizlik gerekli",
+                area: "8.7mm²"
+            }
+        ],
+        expectedResult: 'reject'
+    },
+    {
+        id: 4,
+        name: "Parça #2850 - Kritik",
+        imageUrl: '/assets/images/gear_inspection.jpg',
+        detections: [
+            {
+                id: 6,
+                label: "Merkez Delik Deformasyonu",
+                labelEn: "Center Bore Deformation",
+                confidence: 0.97,
+                box: { top: 32, left: 35, width: 30, height: 30 },
+                type: "critical",
+                description: "Merkez montaj deliği ovalleşmiş - Mil bağlantısı güvensiz",
+                area: "142.3mm²"
+            },
+            {
+                id: 7,
+                label: "Kenar Aşınması",
+                labelEn: "Edge Wear",
+                confidence: 0.65,
+                box: { top: 5, left: 10, width: 22, height: 22 },
+                type: "minor",
+                description: "Sol üst kenarda aşınma izleri tespit edildi",
+                area: "18.9mm²"
+            },
+            {
+                id: 8,
+                label: "Talaş İzi",
+                labelEn: "Chip Mark",
+                confidence: 0.38,
+                box: { top: 70, left: 65, width: 12, height: 12 },
+                type: "noise",
+                description: "İşleme kalıntısı - Yüzey kalitesini etkilemez",
+                area: "5.2mm²"
             }
         ],
         expectedResult: 'reject'

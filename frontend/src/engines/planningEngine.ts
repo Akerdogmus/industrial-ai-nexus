@@ -227,6 +227,48 @@ export function getMachineColor(machineId: MachineId): string {
 }
 
 /**
+ * Calculate per-machine utilization percentages
+ */
+export function calculateMachineUtilization(orders: Order[]): Record<MachineId, number> {
+    const hours: Record<MachineId, number> = { 'CNC-1': 0, 'CNC-2': 0, 'Assembly': 0 };
+    for (const order of orders) {
+        hours[order.machineId] += order.duration;
+    }
+    const result: Record<MachineId, number> = { 'CNC-1': 0, 'CNC-2': 0, 'Assembly': 0 };
+    for (const id of Object.keys(hours) as MachineId[]) {
+        result[id] = Math.round((hours[id] / WORK_HOURS) * 100);
+    }
+    return result;
+}
+
+/**
+ * Find idle gaps between orders on each machine (for setup waste visualization)
+ */
+export function findIdleGaps(orders: Order[]): { machineId: MachineId; start: number; end: number }[] {
+    const gaps: { machineId: MachineId; start: number; end: number }[] = [];
+    const byMachine = getOrdersByMachine(orders);
+
+    for (const machineId of Object.keys(byMachine) as MachineId[]) {
+        const sorted = [...byMachine[machineId]].sort((a, b) => a.startTime - b.startTime);
+        if (sorted.length === 0) continue;
+
+        // Gap at start of day
+        if (sorted[0].startTime > WORK_START + 0.1) {
+            gaps.push({ machineId, start: WORK_START, end: sorted[0].startTime });
+        }
+        // Gaps between consecutive orders
+        for (let i = 0; i < sorted.length - 1; i++) {
+            const endCurrent = sorted[i].startTime + sorted[i].duration;
+            const startNext = sorted[i + 1].startTime;
+            if (startNext - endCurrent > 0.1) {
+                gaps.push({ machineId, start: endCurrent, end: startNext });
+            }
+        }
+    }
+    return gaps;
+}
+
+/**
  * Format hour to display string
  */
 export function formatHour(hour: number): string {
