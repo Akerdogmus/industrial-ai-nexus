@@ -180,7 +180,7 @@ const MetricCard: React.FC<{
     isOptimized?: boolean;
     formatter?: (n: number) => string;
 }> = ({ icon, label, numericValue, suffix, status, description,
-    previousValue, previousDisplay, isOptimized, formatter }) => {
+    previousValue: _previousValue, previousDisplay, isOptimized, formatter }) => {
     const animated = useCountUp(numericValue, 1000);
     const display = formatter ? formatter(animated) : String(Math.round(animated));
 
