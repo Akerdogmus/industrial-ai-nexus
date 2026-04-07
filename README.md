@@ -79,15 +79,6 @@ Projeyi kendi bilgisayarınızda geliştirmek isterseniz:
 
 ---
 
-## 📷 Galeri
-
-| Dashboard | Analiz |
-|-----------|--------|
-| ![Dashboard](images/fig2.png) | ![Analysis](images/fig3.png) |
-| ![Details](images/fig4.png) | ![Simulation](images/fig5.png) |
-
----
-
 ## 🛠️ Teknoloji Yığını
 
 - **Frontend:** React 19, TypeScript, Vite
