@@ -1,6 +1,6 @@
 # 🏭 Industrial AI Nexus
 
-![Industrial AI Nexus Banner](images/fig1.png)
+![Industrial AI Nexus Banner](images/fig1_new.png)
 
 **Endüstriyel Yapay Zeka Çözümleri Demo Platformu**
 
