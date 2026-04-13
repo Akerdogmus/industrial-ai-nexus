@@ -30,18 +30,20 @@ export interface InspectionSample {
 // ============================================
 // INSPECTION SAMPLES (Conveyor Belt Simulation)
 // ============================================
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 export const INSPECTION_SAMPLES: InspectionSample[] = [
     {
         id: 1,
         name: "Parça #2847 - Temiz",
-        imageUrl: '/assets/images/gear_clean.jpg',
+        imageUrl: `${BASE}/assets/images/gear_clean.jpg`,
         detections: [],
         expectedResult: 'pass'
     },
     {
         id: 2,
         name: "Parça #2848 - Hatalı",
-        imageUrl: '/assets/images/gear_inspection.jpg',
+        imageUrl: `${BASE}/assets/images/gear_inspection.jpg`,
         detections: [
             {
                 id: 1,
@@ -79,7 +81,7 @@ export const INSPECTION_SAMPLES: InspectionSample[] = [
     {
         id: 3,
         name: "Parça #2849 - Minör Hata",
-        imageUrl: '/assets/images/gear_clean.jpg',
+        imageUrl: `${BASE}/assets/images/gear_clean.jpg`,
         detections: [
             {
                 id: 4,
@@ -107,7 +109,7 @@ export const INSPECTION_SAMPLES: InspectionSample[] = [
     {
         id: 4,
         name: "Parça #2850 - Kritik",
-        imageUrl: '/assets/images/gear_inspection.jpg',
+        imageUrl: `${BASE}/assets/images/gear_inspection.jpg`,
         detections: [
             {
                 id: 6,
