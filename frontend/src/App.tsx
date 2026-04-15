@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Zap } from 'lucide-react';
+import { ShieldCheck, Zap, Network, Database, Search, Cpu, ChevronRight } from 'lucide-react';
 import {
   fetchOEE, fetchCopilot
 } from './api/client';
@@ -639,12 +639,22 @@ function ChangelogModal({ onClose }: { onClose: () => void }) {
       <div className="modal-content demo-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '620px', height: 'auto' }}>
         <div className="modal-header">
           <div>
-            <h2>Sürüm Notları (v2.0.0)</h2>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>2026 — Görsel Yükseltme</div>
+            <h2>Sürüm Notları (v2.1.0)</h2>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>2026 — Platform Tanıtımı</div>
           </div>
           <button onClick={onClose} className="close-btn">✕</button>
         </div>
         <div className="module-content" style={{ padding: '1.5rem' }}>
+
+          <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', color: '#4ade80', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Network size={20} />
+            v2.1.0 — Platform Tanıtım Bölümü
+          </h3>
+          <ul style={{ lineHeight: '1.7', listStyleType: 'disc', paddingLeft: '1.5rem', color: '#e2e8f0', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
+            <li><strong>"Industrial AI Nexus Nedir?" Kartı:</strong> Landing page'e platform tanıtım bölümü eklendi.</li>
+            <li><strong>3 Aşamalı Süreç Gösterimi:</strong> Veri Toplama → Saha Analizi → AI Çözüm adımları görselleştirildi.</li>
+            <li><strong>7 Aktif Çözüm Alanı:</strong> Domain badge'leri ile mevcut modüller tanıtıldı.</li>
+          </ul>
 
           <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', color: '#60a5fa', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Zap size={20} />
@@ -671,7 +681,7 @@ function ChangelogModal({ onClose }: { onClose: () => void }) {
           </ul>
 
           <div style={{ marginTop: '2rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', fontSize: '0.8rem', color: '#64748b', textAlign: 'center' }}>
-            Industrial AI Nexus v2.0.0 <br /> Developed by A. Kerem Erdogmus
+            Industrial AI Nexus v2.1.0 <br /> Developed by A. Kerem Erdogmus
           </div>
         </div>
       </div>
@@ -739,7 +749,7 @@ function App() {
         }}
       >
         <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80' }}></span>
-        v2.0.0
+        v2.1.0
       </div>
 
       {/* Hero Header */}
@@ -754,6 +764,74 @@ function App() {
 
       {/* ROI Ticker */}
       <ROITicker />
+
+      {/* What is Industrial AI Nexus? */}
+      <div className="nexus-intro-card">
+        <div className="nexus-intro-left">
+          <div className="nexus-intro-header">
+            <div className="nexus-intro-icon">
+              <Network size={28} />
+            </div>
+            <div>
+              <h2 className="nexus-intro-title">Industrial AI Nexus Nedir?</h2>
+              <p className="nexus-intro-tagline">Endüstriyel use case'lere özel tailored AI çözüm sistemi</p>
+            </div>
+          </div>
+          <p className="nexus-intro-desc">
+            Industrial AI Nexus, üretim verimliliği ve kronik sorunların çözümü gibi endüstriyel
+            alanlara özel entegre AI çözümler geliştiren bir platformdur. Her çözüm; sahadan
+            toplanan gerçek veriler, yerinde saha analizi ve use case'e uygun AI destekli
+            uygulama yaklaşımlarıyla şekillendirilir.
+          </p>
+          <div className="nexus-process-steps">
+            <div className="nexus-step">
+              <div className="nexus-step-icon"><Database size={18} /></div>
+              <div>
+                <div className="nexus-step-label">Veri Toplama</div>
+                <div className="nexus-step-sub">Sahadan gerçek zamanlı veri</div>
+              </div>
+            </div>
+            <ChevronRight size={16} className="nexus-step-arrow" />
+            <div className="nexus-step">
+              <div className="nexus-step-icon"><Search size={18} /></div>
+              <div>
+                <div className="nexus-step-label">Saha Analizi</div>
+                <div className="nexus-step-sub">Use case bazlı problem tespiti</div>
+              </div>
+            </div>
+            <ChevronRight size={16} className="nexus-step-arrow" />
+            <div className="nexus-step">
+              <div className="nexus-step-icon"><Cpu size={18} /></div>
+              <div>
+                <div className="nexus-step-label">AI Çözüm</div>
+                <div className="nexus-step-sub">Platforma özel entegrasyon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="nexus-intro-right">
+          <div className="nexus-domains-label">Aktif Çözüm Alanları</div>
+          <div className="nexus-domains-grid">
+            {[
+              'Prediktif Bakım',
+              'Üretim Verimliliği',
+              'Enerji Optimizasyonu',
+              'Kalite Vizyonu',
+              'Üretim Planlama',
+              'Anomali Tespiti',
+              'AI Copilot',
+            ].map((domain, i) => (
+              <div key={i} className="nexus-domain-badge">
+                <span className="nexus-domain-dot" />
+                {domain}
+              </div>
+            ))}
+          </div>
+          <div className="nexus-more-hint">
+            + Farklı endüstriyel sorunlar için yeni çözümler geliştirilebilir
+          </div>
+        </div>
+      </div>
 
       {/* Module Grid */}
       <div className="modules-layout">

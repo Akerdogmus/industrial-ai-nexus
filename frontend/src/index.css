@@ -880,6 +880,212 @@ p {
   line-height: 1.6;
 }
 
+/* ============================================
+   NEXUS INTRO CARD
+   ============================================ */
+.nexus-intro-card {
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  padding: 2rem 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease both;
+}
+
+.nexus-intro-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.nexus-intro-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.nexus-intro-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.nexus-intro-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+}
+
+.nexus-intro-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.2rem;
+  line-height: 1.2;
+}
+
+.nexus-intro-tagline {
+  font-size: 0.85rem;
+  color: var(--accent-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+.nexus-intro-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.nexus-process-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.nexus-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+}
+
+.nexus-step-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.nexus-step-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.nexus-step-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+  margin-top: 0.15rem;
+}
+
+.nexus-step-arrow {
+  color: rgba(59, 130, 246, 0.45);
+  flex-shrink: 0;
+}
+
+.nexus-intro-right {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.nexus-domains-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.nexus-domains-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.nexus-domain-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.nexus-domain-badge:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--text-primary);
+}
+
+.nexus-domain-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.6);
+  flex-shrink: 0;
+}
+
+.nexus-more-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 900px) {
+  .nexus-intro-card {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .nexus-intro-right {
+    width: 100%;
+  }
+  .nexus-domains-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .nexus-process-steps {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nexus-step-arrow {
+    display: none;
+  }
+}
+
 .modules-layout {
   display: flex;
   flex-direction: column;
