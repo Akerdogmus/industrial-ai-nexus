@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Zap, Network, Database, Search, Cpu, ChevronRight } from 'lucide-react';
+import { ShieldCheck, Zap, Network, Database, Search, Cpu, ChevronRight, ChevronDown } from 'lucide-react';
 import {
   fetchOEE, fetchCopilot
 } from './api/client';
@@ -695,6 +695,7 @@ function ChangelogModal({ onClose }: { onClose: () => void }) {
 function App() {
   const [activeModule, setActiveModule] = useState<ModuleType | null>(null);
   const [showChangelog, setShowChangelog] = useState(false);
+  const [nexusIntroOpen, setNexusIntroOpen] = useState(false);
 
   const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -765,70 +766,78 @@ function App() {
       {/* ROI Ticker */}
       <ROITicker />
 
-      {/* What is Industrial AI Nexus? */}
-      <div className="nexus-intro-card">
-        <div className="nexus-intro-left">
-          <div className="nexus-intro-header">
-            <div className="nexus-intro-icon">
-              <Network size={28} />
-            </div>
-            <div>
-              <h2 className="nexus-intro-title">Industrial AI Nexus Nedir?</h2>
-              <p className="nexus-intro-tagline">Endüstriyel use case'lere özel tailored AI çözüm sistemi</p>
-            </div>
+      {/* What is Industrial AI Nexus? — Collapsible */}
+      <div className={`nexus-intro-card${nexusIntroOpen ? ' nexus-intro-open' : ''}`}>
+        {/* Always-visible header row — clicking toggles expand */}
+        <div className="nexus-intro-toggle" onClick={() => setNexusIntroOpen(o => !o)}>
+          <div className="nexus-intro-icon">
+            <Network size={22} />
           </div>
-          <p className="nexus-intro-desc">
-            Industrial AI Nexus, üretim verimliliği ve kronik sorunların çözümü gibi endüstriyel
-            alanlara özel entegre AI çözümler geliştiren bir platformdur. Her çözüm; sahadan
-            toplanan gerçek veriler, yerinde saha analizi ve use case'e uygun AI destekli
-            uygulama yaklaşımlarıyla şekillendirilir.
-          </p>
-          <div className="nexus-process-steps">
-            <div className="nexus-step">
-              <div className="nexus-step-icon"><Database size={18} /></div>
-              <div>
-                <div className="nexus-step-label">Veri Toplama</div>
-                <div className="nexus-step-sub">Sahadan gerçek zamanlı veri</div>
-              </div>
-            </div>
-            <ChevronRight size={16} className="nexus-step-arrow" />
-            <div className="nexus-step">
-              <div className="nexus-step-icon"><Search size={18} /></div>
-              <div>
-                <div className="nexus-step-label">Saha Analizi</div>
-                <div className="nexus-step-sub">Use case bazlı problem tespiti</div>
-              </div>
-            </div>
-            <ChevronRight size={16} className="nexus-step-arrow" />
-            <div className="nexus-step">
-              <div className="nexus-step-icon"><Cpu size={18} /></div>
-              <div>
-                <div className="nexus-step-label">AI Çözüm</div>
-                <div className="nexus-step-sub">Platforma özel entegrasyon</div>
-              </div>
-            </div>
+          <div className="nexus-intro-toggle-text">
+            <span className="nexus-intro-title">Industrial AI Nexus Nedir?</span>
+            <span className="nexus-intro-tagline">Endüstriyel use case'lere özel tailored AI çözüm sistemi</span>
           </div>
+          <ChevronDown size={18} className="nexus-intro-chevron" />
         </div>
-        <div className="nexus-intro-right">
-          <div className="nexus-domains-label">Aktif Çözüm Alanları</div>
-          <div className="nexus-domains-grid">
-            {[
-              'Prediktif Bakım',
-              'Üretim Verimliliği',
-              'Enerji Optimizasyonu',
-              'Kalite Vizyonu',
-              'Üretim Planlama',
-              'Anomali Tespiti',
-              'AI Copilot',
-            ].map((domain, i) => (
-              <div key={i} className="nexus-domain-badge">
-                <span className="nexus-domain-dot" />
-                {domain}
+
+        {/* Expandable body */}
+        <div className="nexus-intro-body">
+          <div className="nexus-intro-inner">
+            <div className="nexus-intro-left">
+              <p className="nexus-intro-desc">
+                Industrial AI Nexus, üretim verimliliği ve kronik sorunların çözümü gibi endüstriyel
+                alanlara özel entegre AI çözümler geliştiren bir platformdur. Her çözüm; sahadan
+                toplanan gerçek veriler, yerinde saha analizi ve use case'e uygun AI destekli
+                uygulama yaklaşımlarıyla şekillendirilir.
+              </p>
+              <div className="nexus-process-steps">
+                <div className="nexus-step">
+                  <div className="nexus-step-icon"><Database size={18} /></div>
+                  <div>
+                    <div className="nexus-step-label">Veri Toplama</div>
+                    <div className="nexus-step-sub">Sahadan gerçek zamanlı veri</div>
+                  </div>
+                </div>
+                <ChevronRight size={16} className="nexus-step-arrow" />
+                <div className="nexus-step">
+                  <div className="nexus-step-icon"><Search size={18} /></div>
+                  <div>
+                    <div className="nexus-step-label">Saha Analizi</div>
+                    <div className="nexus-step-sub">Use case bazlı problem tespiti</div>
+                  </div>
+                </div>
+                <ChevronRight size={16} className="nexus-step-arrow" />
+                <div className="nexus-step">
+                  <div className="nexus-step-icon"><Cpu size={18} /></div>
+                  <div>
+                    <div className="nexus-step-label">AI Çözüm</div>
+                    <div className="nexus-step-sub">Platforma özel entegrasyon</div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-          <div className="nexus-more-hint">
-            + Farklı endüstriyel sorunlar için yeni çözümler geliştirilebilir
+            </div>
+            <div className="nexus-intro-right">
+              <div className="nexus-domains-label">Aktif Çözüm Alanları</div>
+              <div className="nexus-domains-grid">
+                {[
+                  'Prediktif Bakım',
+                  'Üretim Verimliliği',
+                  'Enerji Optimizasyonu',
+                  'Kalite Vizyonu',
+                  'Üretim Planlama',
+                  'Anomali Tespiti',
+                  'AI Copilot',
+                ].map((domain, i) => (
+                  <div key={i} className="nexus-domain-badge">
+                    <span className="nexus-domain-dot" />
+                    {domain}
+                  </div>
+                ))}
+              </div>
+              <div className="nexus-more-hint">
+                + Farklı endüstriyel sorunlar için yeni çözümler geliştirilebilir
+              </div>
+            </div>
           </div>
         </div>
       </div>
