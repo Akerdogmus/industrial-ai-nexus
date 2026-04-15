@@ -2,9 +2,9 @@
 
 ![Industrial AI Nexus Banner](images/fig1_new.png)
 
-**Endüstriyel Yapay Zeka Çözümleri Demo Platformu**
+**Endüstriyel Use Case'lere Özel Tailored AI Çözüm Sistemi**
 
-Industrial AI Nexus, modern üretim tesislerinde yapay zekanın gücünü somutlaştırmak için geliştirilmiş, kurulum gerektirmeyen, tamamen tarayıcı tabanlı bir simülasyon ve görselleştirme platformudur.
+Industrial AI Nexus, üretim verimliliği ve kronik sorunların çözümü gibi endüstriyel alanlara özel entegre AI çözümler geliştiren bir platformdur. Her çözüm; sahadan toplanan gerçek veriler, yerinde saha analizi ve use case'e uygun AI destekli uygulama yaklaşımlarıyla şekillendirilir. Platform şu an 7 farklı çözüm alanında demo sunmakta olup yeni endüstriyel sorunlar için de çözüm geliştirilebilmektedir.
 
 [🌐 **CANLI DEMO İÇİN TIKLAYIN**](https://akerdogmus.github.io/industrial-ai-nexus/)
 
@@ -94,10 +94,21 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ---
 
-* Version: 2.0.0
-* Date: 2026-04-07
+* Version: 2.1.0
+* Date: 2026-04-15
 * Developed by: A. Kerem Erdogmus
 * Contact: kereme@acd.com.tr
+
+## 📢 Sürüm Notları (v2.1.0)
+### Platform Tanıtım Bölümü
+
+#### 🌐 "Industrial AI Nexus Nedir?" Kartı — Yeni
+- **Platform Tanıtımı:** Ana sayfaya, ROI Ticker ile modül grid'i arasında platform açıklama kartı eklendi.
+- **3 Aşamalı Süreç Gösterimi:** Veri Toplama → Saha Analizi → AI Çözüm akışı görselleştirildi.
+- **7 Aktif Çözüm Alanı:** Mevcut modüller domain badge listesiyle tanıtıldı.
+- **Genişletilebilirlik Notu:** Farklı endüstriyel sorunlar için yeni çözümler geliştirilebileceğine dair ipucu eklendi.
+
+---
 
 ## 📢 Sürüm Notları (v2.0.0)
 ### 🚀 Büyük Güncelleme — Modül Yeniden Tasarımı
