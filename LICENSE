@@ -1,21 +1,50 @@
-MIT License
+Copyright (c) 2026 ACD | Veri Mühendisliği. Tüm hakları saklıdır.
+Copyright (c) 2026 ACD | Veri Mühendisliği. All rights reserved.
 
-Copyright (c) 2026 A.Kerem Erdoğmuş
+TÜRKÇE
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Bu depoda yer alan yazılım, kaynak kod, nesne kod, tasarım, kullanıcı arayüzü,
+metin, görsel, video, ses, marka, logo, fikir, yöntem ve belgeler ("İçerik")
+dahil olmak üzere tüm fikri ve sınai mülkiyet hakları münhasıran
+ACD | Veri Mühendisliği'ne aittir.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+İçerik yalnızca Industrial AI Nexus platformunun tanıtımı amacıyla
+görüntülenmek üzere kamuya açık olarak yayınlanmıştır. Bu yayın, herhangi bir
+lisans, kullanım hakkı veya izin verildiği anlamına gelmez.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+ACD | Veri Mühendisliği'nin önceden alınmış yazılı izni olmaksızın İçerik'in
+tamamı veya bir kısmı; kopyalanamaz, çoğaltılamaz, değiştirilemez, uyarlanamaz,
+tersine mühendislik yapılamaz, dağıtılamaz, yayınlanamaz, alt lisanslanamaz,
+satılamaz, kiralanamaz, türev çalışmalarda kullanılamaz, yapay zeka modellerinin
+eğitiminde kullanılamaz ve ticari veya ticari olmayan herhangi bir amaçla
+kullanılamaz.
+
+İçerik "olduğu gibi" sunulur; ACD | Veri Mühendisliği, açık veya zımni hiçbir
+garanti vermez ve İçerik'in kullanımından doğan hiçbir zarardan sorumlu
+tutulamaz.
+
+İzin talepleri için: info@acd.com.tr
+
+
+ENGLISH
+
+All intellectual and industrial property rights in this repository, including
+software, source code, object code, design, user interface, text, images,
+video, audio, trademarks, logos, ideas, methods and documentation (the
+"Content"), belong exclusively to ACD | Veri Mühendisliği.
+
+The Content is made publicly available solely for viewing as a presentation of
+the Industrial AI Nexus platform. Its publication does not grant any license,
+right of use or permission.
+
+Without the prior written permission of ACD | Veri Mühendisliği, no part of
+the Content may be copied, reproduced, modified, adapted, reverse engineered,
+distributed, published, sublicensed, sold, rented, used in derivative works,
+used to train artificial intelligence models, or used for any commercial or
+non-commercial purpose.
+
+The Content is provided "as is", without warranty of any kind, express or
+implied. In no event shall ACD | Veri Mühendisliği be liable for any damages
+arising from the use of the Content.
+
+Permission requests: info@acd.com.tr
