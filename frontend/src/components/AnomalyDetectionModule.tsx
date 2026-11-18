@@ -38,7 +38,7 @@ const REASONING_STEPS_MAP: Record<NoiseType, (c: SensorConfig) => string[]> = {
         `⚠️ Rastgele Parazit tespit edildi! Skor: 0.87`,
     ],
     spike: (c) => [
-        `Ani genlik artışı algılandı — ${c.unit} kritik seviyede`,
+        `${c.shortLabel} sinyalinde ani genlik artışı — değer kritik bölgede`,
         `Değer baseline'dan +${(c.anomalyThreshold + 12).toFixed(0)} ${c.unit} saptı`,
         `⚠️ Ani Sinyal Sıçraması teyit edildi! Skor: 0.94`,
     ],
@@ -123,14 +123,14 @@ const AnimatedCluster: React.FC<{ data: ClusterPoint[] }> = ({ data }) => {
     return (
         <svg width="100%" height={H} viewBox={`0 0 ${W} ${H}`} className="cluster-svg">
             {/* Grid lines */}
-            <line x1={W / 2} y1={0} x2={W / 2} y2={H} stroke="rgba(99,102,241,0.12)" strokeWidth="1" />
-            <line x1={0} y1={H / 2} x2={W} y2={H / 2} stroke="rgba(99,102,241,0.12)" strokeWidth="1" />
+            <line x1={W / 2} y1={0} x2={W / 2} y2={H} stroke="rgba(212, 70, 111,0.12)" strokeWidth="1" />
+            <line x1={0} y1={H / 2} x2={W} y2={H / 2} stroke="rgba(212, 70, 111,0.12)" strokeWidth="1" />
             {/* Normal zone */}
             <circle
                 cx={W / 2} cy={H / 2}
                 r={(1.5 / (2 * domain)) * W}
-                fill="rgba(59,130,246,0.05)"
-                stroke="rgba(59,130,246,0.18)"
+                fill="rgba(212, 70, 111,0.05)"
+                stroke="rgba(212, 70, 111,0.18)"
                 strokeWidth="1"
                 strokeDasharray="4 3"
             />
@@ -159,7 +159,7 @@ const AnimatedCluster: React.FC<{ data: ClusterPoint[] }> = ({ data }) => {
                                 cx={pos.cx}
                                 cy={pos.cy}
                                 r={pt.isAnomaly ? 5 : 3.5}
-                                fill={pt.isAnomaly ? '#ef4444' : '#3b82f6'}
+                                fill={pt.isAnomaly ? '#ef4444' : '#5B8DEF'}
                                 opacity={pt.isAnomaly ? 0.88 : 0.52}
                             />
                         </motion.g>
@@ -570,9 +570,9 @@ const AnomalyDetectionModule: React.FC<AnomalyDetectionModuleProps> = ({ onClose
                                                 'Değer',
                                             ]}
                                         />
-                                        {/* Threshold bands */}
+                                        {/* Eşik bantları: taban değer ± anomali eşiği */}
                                         <ReferenceArea
-                                            y1={sensor.yDomain[1] * 0.8}
+                                            y1={sensor.baselineOffset + sensor.anomalyThreshold}
                                             y2={sensor.yDomain[1]}
                                             fill="rgba(239,68,68,0.05)"
                                             stroke="rgba(239,68,68,0.25)"
@@ -580,7 +580,7 @@ const AnomalyDetectionModule: React.FC<AnomalyDetectionModuleProps> = ({ onClose
                                         />
                                         <ReferenceArea
                                             y1={sensor.yDomain[0]}
-                                            y2={sensor.yDomain[0] * 0.8}
+                                            y2={sensor.baselineOffset - sensor.anomalyThreshold}
                                             fill="rgba(239,68,68,0.05)"
                                             stroke="rgba(239,68,68,0.25)"
                                             strokeDasharray="4 4"

@@ -155,7 +155,7 @@ export function getDetectionColor(type: Detection['type']): string {
     switch (type) {
         case 'critical': return '#ef4444'; // Red
         case 'minor': return '#f59e0b';    // Yellow/Amber
-        case 'noise': return '#6b7280';    // Gray
+        case 'noise': return '#7D838E';    // Gray
     }
 }
 

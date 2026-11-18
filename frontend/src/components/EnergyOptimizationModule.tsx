@@ -100,15 +100,15 @@ const PowerFlowDiagram: React.FC<{
                 className="power-flow-svg" style={{ height: 68 }}>
                 {/* Grid node */}
                 <rect x="4" y="18" width="80" height="32" rx="8"
-                    fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.5)" strokeWidth="1.5" />
-                <text x="44" y="31" textAnchor="middle" fill="#93c5fd" fontSize="9" fontWeight="700">ŞEBEKE</text>
-                <text x="44" y="43" textAnchor="middle" fill="#60a5fa" fontSize="8">Grid • 380V</text>
+                    fill="rgba(212, 70, 111,0.15)" stroke="rgba(212, 70, 111,0.5)" strokeWidth="1.5" />
+                <text x="44" y="31" textAnchor="middle" fill="#F5A3BE" fontSize="9" fontWeight="700">ŞEBEKE</text>
+                <text x="44" y="43" textAnchor="middle" fill="#F07AA0" fontSize="8">Grid • 380V</text>
 
                 {/* Trafo node */}
                 <rect x="180" y="18" width="80" height="32" rx="8"
-                    fill="rgba(139,92,246,0.15)" stroke="rgba(139,92,246,0.5)" strokeWidth="1.5" />
-                <text x="220" y="31" textAnchor="middle" fill="#c4b5fd" fontSize="9" fontWeight="700">TRAFO</text>
-                <text x="220" y="43" textAnchor="middle" fill="#a78bfa" fontSize="8">34kV / 400V</text>
+                    fill="rgba(242, 184, 75,0.15)" stroke="rgba(242, 184, 75,0.5)" strokeWidth="1.5" />
+                <text x="220" y="31" textAnchor="middle" fill="#F8D99A" fontSize="9" fontWeight="700">TRAFO</text>
+                <text x="220" y="43" textAnchor="middle" fill="#F5C76E" fontSize="8">34kV / 400V</text>
 
                 {/* Factory node */}
                 <rect x="356" y="18" width="80" height="32" rx="8"
@@ -121,8 +121,8 @@ const PowerFlowDiagram: React.FC<{
                     fill={isOptimized ? '#34d399' : '#fbbf24'} fontSize="8">{powerKW} kW</text>
 
                 {/* Grid → Trafo path */}
-                <path d="M84,34 Q132,34 180,34" fill="none" stroke="rgba(59,130,246,0.25)" strokeWidth="3" />
-                <circle r="4" fill="rgba(59,130,246,0.9)">
+                <path d="M84,34 Q132,34 180,34" fill="none" stroke="rgba(212, 70, 111,0.25)" strokeWidth="3" />
+                <circle r="4" fill="rgba(212, 70, 111,0.9)">
                     <animateMotion path="M84,34 Q132,34 180,34" dur={`${2.5 / speed}s`} repeatCount="indefinite" />
                 </circle>
 
@@ -149,7 +149,7 @@ const PowerFlowDiagram: React.FC<{
                     }}>
                         ⚡ {Math.round(powerKW * rate)} TL/saat
                     </span>
-                    <span style={{ color: '#6b7280', fontSize: '0.75rem' }}>
+                    <span style={{ color: '#7D838E', fontSize: '0.75rem' }}>
                         {(powerKW / 1000).toFixed(2)} MWh birim
                     </span>
                 </div>
@@ -269,7 +269,7 @@ const PlanningScoreGauge: React.FC<{ score: number }> = ({ score }) => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-            <div style={{ fontSize: '0.62rem', color: '#6b7280', marginBottom: '2px', letterSpacing: '0.5px' }}>
+            <div style={{ fontSize: '0.62rem', color: '#7D838E', marginBottom: '2px', letterSpacing: '0.5px' }}>
                 PLANLAMA SKORU
             </div>
             <svg width="96" height="70" viewBox="0 0 96 70">
@@ -285,7 +285,7 @@ const PlanningScoreGauge: React.FC<{ score: number }> = ({ score }) => {
                 <text x={cx} y={cy - 4} textAnchor="middle" fill="white" fontSize="18" fontWeight="800">
                     {displayed}
                 </text>
-                <text x={cx} y={cy + 10} textAnchor="middle" fill="#6b7280" fontSize="7.5">PUAN</text>
+                <text x={cx} y={cy + 10} textAnchor="middle" fill="#7D838E" fontSize="7.5">PUAN</text>
             </svg>
             <div style={{ fontSize: '0.65rem', color: col, fontWeight: 700 }}>{label}</div>
         </div>
@@ -338,7 +338,7 @@ const OptimizationSummaryCard: React.FC<{
                 alignItems: 'center', gap: '6px', marginBottom: '0.7rem',
             }}>
                 <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.6rem', color: '#9ca3af', marginBottom: '3px' }}>ÖNCEKİ PLAN</div>
+                    <div style={{ fontSize: '0.6rem', color: '#A9AEB8', marginBottom: '3px' }}>ÖNCEKİ PLAN</div>
                     <div style={{
                         fontSize: '1.05rem', color: '#ef4444', fontWeight: 700,
                         textDecoration: 'line-through', opacity: 0.65,
@@ -348,7 +348,7 @@ const OptimizationSummaryCard: React.FC<{
                 </div>
                 <div style={{ textAlign: 'center', fontSize: '1.2rem', color: '#34d399' }}>→</div>
                 <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.6rem', color: '#9ca3af', marginBottom: '3px' }}>OPTİMAL PLAN</div>
+                    <div style={{ fontSize: '0.6rem', color: '#A9AEB8', marginBottom: '3px' }}>OPTİMAL PLAN</div>
                     <div style={{
                         fontSize: '1.25rem', color: '#10b981', fontWeight: 800,
                         filter: 'drop-shadow(0 0 8px rgba(16,185,129,0.55))',
@@ -516,7 +516,7 @@ const EnergyOptimizationModule: React.FC<EnergyOptimizationModuleProps> = ({ onC
                 {/* Header */}
                 <div className="modal-header">
                     <div>
-                        <h2>⚡ Enerji Optimizasyonu</h2>
+                        <h2><Zap size={24} /> Enerji Optimizasyonu</h2>
                         <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                             Akıllı Yük Kaydırma ile Maliyet Azaltma
                         </div>
@@ -673,7 +673,7 @@ const EnergyOptimizationModule: React.FC<EnergyOptimizationModuleProps> = ({ onC
                             <h4 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                 24 Saatlik Tarife ve Tüketim Planı
                                 {previousStartHour !== null && (
-                                    <span style={{ fontSize: '0.62rem', color: '#9ca3af', fontWeight: 400 }}>
+                                    <span style={{ fontSize: '0.62rem', color: '#A9AEB8', fontWeight: 400 }}>
                                         <span style={{ color: '#ef4444aa', marginRight: '3px' }}>■</span>Eski plan
                                         <span style={{ color: '#10b981', margin: '0 3px 0 10px' }}>■</span>Yeni plan
                                     </span>
@@ -688,15 +688,15 @@ const EnergyOptimizationModule: React.FC<EnergyOptimizationModuleProps> = ({ onC
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
-                                    <XAxis dataKey="hour" stroke="#9ca3af" fontSize={11} tickLine={false} interval={2} />
-                                    <YAxis yAxisId="tariff" orientation="left" stroke="#9ca3af" fontSize={11} tickLine={false}
-                                        label={{ value: 'TL/kWh', angle: -90, position: 'insideLeft', fontSize: 10, fill: '#9ca3af' }} />
-                                    <YAxis yAxisId="consumption" orientation="right" stroke="#9ca3af" fontSize={11} tickLine={false}
-                                        label={{ value: 'kW', angle: 90, position: 'insideRight', fontSize: 10, fill: '#9ca3af' }} />
+                                    <XAxis dataKey="hour" stroke="#A9AEB8" fontSize={11} tickLine={false} interval={2} />
+                                    <YAxis yAxisId="tariff" orientation="left" stroke="#A9AEB8" fontSize={11} tickLine={false}
+                                        label={{ value: 'TL/kWh', angle: -90, position: 'insideLeft', fontSize: 10, fill: '#A9AEB8' }} />
+                                    <YAxis yAxisId="consumption" orientation="right" stroke="#A9AEB8" fontSize={11} tickLine={false}
+                                        label={{ value: 'kW', angle: 90, position: 'insideRight', fontSize: 10, fill: '#A9AEB8' }} />
                                     <Tooltip content={<CustomTooltip />} />
 
                                     <Area yAxisId="tariff" type="stepAfter" dataKey="tariffRate"
-                                        stroke="transparent" fill="url(#tariffGradient)" />
+                                        stroke="transparent" fill="url(#tariffGradient)" isAnimationActive={false} />
 
                                     <ReferenceLine
                                         x={`${state.deadline.toString().padStart(2, '0')}:00`}
@@ -707,14 +707,14 @@ const EnergyOptimizationModule: React.FC<EnergyOptimizationModuleProps> = ({ onC
                                     {/* Old plan — faded red bars */}
                                     {previousStartHour !== null && (
                                         <Bar yAxisId="consumption" dataKey="previousConsumption"
-                                            maxBarSize={26} radius={[3, 3, 0, 0]} opacity={0.32}>
+                                            maxBarSize={26} radius={[3, 3, 0, 0]} opacity={0.32} isAnimationActive={false}>
                                             {mergedData.map((_, i) => <Cell key={`prev-${i}`} fill="#ef4444" />)}
                                         </Bar>
                                     )}
 
                                     {/* New / current plan */}
                                     <Bar yAxisId="consumption" dataKey="consumption"
-                                        maxBarSize={26} radius={[3, 3, 0, 0]}>
+                                        maxBarSize={26} radius={[3, 3, 0, 0]} isAnimationActive={false}>
                                         {mergedData.map((entry, i) => (
                                             <Cell key={`cell-${i}`}
                                                 fill={entry.tariffZone === 'night' ? '#10b981'

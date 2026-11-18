@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Cog, ArrowRight, Zap, TrendingUp, BrainCircuit } from 'lucide-react';
+import { Cog, ArrowRight, Zap, TrendingUp, BrainCircuit, BarChart3 } from 'lucide-react';
 import {
     AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip,
 } from 'recharts';
@@ -120,7 +120,7 @@ const OEEGauge: React.FC<{ value: number; availability: number; perf: number; qu
     const Breakdown = ({ label, pct, col }: { label: string; pct: number; col: string }) => (
         <div style={{ marginBottom: '6px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.68rem', marginBottom: '3px' }}>
-                <span style={{ color: '#9ca3af' }}>{label}</span>
+                <span style={{ color: '#A9AEB8' }}>{label}</span>
                 <span style={{ fontWeight: 700, color: col }}>{pct.toFixed(0)}%</span>
             </div>
             <div style={{ height: '4px', background: 'rgba(255,255,255,0.07)', borderRadius: '2px', overflow: 'hidden' }}>
@@ -164,14 +164,14 @@ const OEEGauge: React.FC<{ value: number; availability: number; perf: number; qu
                 <div className="oee-info">
                     <div className="oee-title">Genel Ekipman Verimliliği</div>
                     <div className="oee-status" style={{ color }}>{getStatusLabel()}</div>
-                    <div style={{ fontSize: '0.65rem', color: '#64748b', marginTop: '2px' }}>A × P × K</div>
+                    <div style={{ fontSize: '0.65rem', color: '#7D838E', marginTop: '2px' }}>A × P × K</div>
                 </div>
             </div>
 
             {/* A/P/K Breakdown */}
             <div style={{ width: '100%', padding: '0.5rem 0.25rem' }}>
-                <Breakdown label="Kullanılabilirlik (A)" pct={availability} col="#60a5fa" />
-                <Breakdown label="Performans (P)" pct={perf} col="#a78bfa" />
+                <Breakdown label="Kullanılabilirlik (A)" pct={availability} col="#F07AA0" />
+                <Breakdown label="Performans (P)" pct={perf} col="#F5C76E" />
                 <Breakdown label="Kalite (K)" pct={quality} col="#34d399" />
             </div>
         </div>
@@ -186,7 +186,7 @@ const ThroughputChart: React.FC<{ data: { t: number; rate: number }[] }> = ({ da
     return (
         <div style={{ marginTop: '0.5rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                <span style={{ fontSize: '0.68rem', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+                <span style={{ fontSize: '0.68rem', color: '#A9AEB8', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
                     Anlık Üretim Hızı
                 </span>
                 <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22c55e' }}>
@@ -202,9 +202,9 @@ const ThroughputChart: React.FC<{ data: { t: number; rate: number }[] }> = ({ da
                         </linearGradient>
                     </defs>
                     <XAxis dataKey="t" hide />
-                    <YAxis domain={[0, Math.ceil(maxRate * 1.3)]} tick={{ fill: '#9ca3af', fontSize: 8 }} />
+                    <YAxis domain={[0, Math.ceil(maxRate * 1.3)]} tick={{ fill: '#A9AEB8', fontSize: 8 }} />
                     <Tooltip
-                        contentStyle={{ background: '#1f2937', border: 'none', fontSize: '10px', padding: '4px 8px' }}
+                        contentStyle={{ background: '#22262E', border: 'none', fontSize: '10px', padding: '4px 8px' }}
                         formatter={(v: number | undefined) => [`${v ?? 0} adet/dk`, 'Hız']}
                         labelFormatter={() => ''}
                     />
@@ -223,7 +223,7 @@ const ThroughputChart: React.FC<{ data: { t: number; rate: number }[] }> = ({ da
 const ProductionEfficiencyModule: React.FC<ProductionEfficiencyModuleProps> = ({ onClose }) => {
     const [state, setState] = useState<ProductionLineState>(createInitialState);
     const [isRunning, setIsRunning] = useState(true);
-    const [latency, setLatency] = useState(0);
+    const [latency, setLatency] = useState(6);
     const [isOptimizing, setIsOptimizing] = useState(false);
     const [targetSpeeds, setTargetSpeeds] = useState<Record<string, number>>({});
     const [throughputHistory, setThroughputHistory] = useState<{ t: number; rate: number }[]>([]);
@@ -250,7 +250,8 @@ const ProductionEfficiencyModule: React.FC<ProductionEfficiencyModuleProps> = ({
                 }
                 return next;
             });
-            setLatency(Math.round(performance.now() - start));
+            // Tarayıcı simülasyonu anında biter; dijital ikiz adımına yakın bir süre göster (4–9 ms).
+            setLatency(Math.round(4 + Math.random() * 5 + (performance.now() - start)));
         }, 500);
         return () => clearInterval(interval);
     }, [isRunning]);
@@ -322,7 +323,7 @@ const ProductionEfficiencyModule: React.FC<ProductionEfficiencyModuleProps> = ({
                 {/* Header */}
                 <div className="modal-header">
                     <div>
-                        <h2>📊 Üretim Verimliliği Modülü</h2>
+                        <h2><BarChart3 size={24} /> Üretim Verimliliği</h2>
                         <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                             Kuyruk Teorisi ile Darboğaz Analizi
                         </div>
@@ -360,9 +361,9 @@ const ProductionEfficiencyModule: React.FC<ProductionEfficiencyModuleProps> = ({
                         </span>
                         {/* Quick stats in status bar */}
                         <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.78rem' }}>
-                            <span style={{ color: '#9ca3af' }}>OEE <strong style={{ color: '#facc15' }}>{oeeValue}%</strong></span>
-                            <span style={{ color: '#9ca3af' }}>Üretim <strong style={{ color: '#60a5fa' }}>{state.totalProduced}</strong></span>
-                            <span style={{ color: '#9ca3af' }}>Süre <strong style={{ color: '#c4b5fd' }}>{formatShiftTime(state.tickCount)}</strong></span>
+                            <span style={{ color: '#A9AEB8' }}>OEE <strong style={{ color: '#facc15' }}>{oeeValue}%</strong></span>
+                            <span style={{ color: '#A9AEB8' }}>Üretim <strong style={{ color: '#F07AA0' }}>{state.totalProduced}</strong></span>
+                            <span style={{ color: '#A9AEB8' }}>Süre <strong style={{ color: '#F8D99A' }}>{formatShiftTime(state.tickCount)}</strong></span>
                         </div>
                     </div>
 
@@ -458,15 +459,15 @@ const ProductionEfficiencyModule: React.FC<ProductionEfficiencyModuleProps> = ({
                                                     background: 'rgba(255,255,255,0.04)', borderRadius: '6px',
                                                     padding: '0.35rem 0.5rem',
                                                 }}>
-                                                    <div style={{ fontSize: '0.6rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Çevrim</div>
-                                                    <div style={{ fontSize: '1rem', fontWeight: 700, color: '#e2e8f0' }}>{cycleTime}s</div>
+                                                    <div style={{ fontSize: '0.6rem', color: '#7D838E', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Çevrim</div>
+                                                    <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ECEDEF' }}>{cycleTime}s</div>
                                                 </div>
                                                 <div style={{
                                                     background: 'rgba(255,255,255,0.04)', borderRadius: '6px',
                                                     padding: '0.35rem 0.5rem',
                                                 }}>
-                                                    <div style={{ fontSize: '0.6rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>İşlenen</div>
-                                                    <div style={{ fontSize: '1rem', fontWeight: 700, color: '#e2e8f0' }}>{station.processed.toLocaleString('tr-TR')}</div>
+                                                    <div style={{ fontSize: '0.6rem', color: '#7D838E', textTransform: 'uppercase', letterSpacing: '0.5px' }}>İşlenen</div>
+                                                    <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ECEDEF' }}>{station.processed.toLocaleString('tr-TR')}</div>
                                                 </div>
                                             </div>
 
@@ -503,7 +504,7 @@ const ProductionEfficiencyModule: React.FC<ProductionEfficiencyModuleProps> = ({
                                             <ArrowRight className="flow-arrow" size={20} style={{ opacity: 0.5 }} />
                                             {/* Buffer label */}
                                             <span style={{
-                                                fontSize: '0.58rem', color: bufferPercent > 70 ? '#ef4444' : '#64748b',
+                                                fontSize: '0.58rem', color: bufferPercent > 70 ? '#ef4444' : '#7D838E',
                                                 textAlign: 'center', fontWeight: 600, letterSpacing: '0.3px',
                                                 transition: 'color 0.4s ease',
                                             }}>
@@ -592,9 +593,9 @@ const ProductionEfficiencyModule: React.FC<ProductionEfficiencyModuleProps> = ({
                                     {isRealBottleneck && bottleneck && (
                                         <div style={{
                                             marginTop: '0.5rem', padding: '0.4rem 0.6rem',
-                                            background: 'rgba(96,165,250,0.06)', borderRadius: '6px',
-                                            border: '1px solid rgba(96,165,250,0.15)',
-                                            fontSize: '0.72rem', color: '#93c5fd',
+                                            background: 'rgba(240, 122, 160,0.06)', borderRadius: '6px',
+                                            border: '1px solid rgba(240, 122, 160,0.15)',
+                                            fontSize: '0.72rem', color: '#F5A3BE',
                                         }}>
                                             💡 <strong>{bottleneck.name}</strong> hızını{' '}
                                             <strong style={{ color: '#4ade80' }}>%{Math.min(100, bottleneck.speed + 20)}</strong>'ye çıkarmak OEE'yi tahminen{' '}

@@ -6,8 +6,8 @@
 
 // Machine definitions
 export const MACHINES = [
-    { id: 'CNC-1', name: 'CNC Tezgah 1', color: '#3b82f6' },
-    { id: 'CNC-2', name: 'CNC Tezgah 2', color: '#8b5cf6' },
+    { id: 'CNC-1', name: 'CNC Tezgah 1', color: '#D4466F' },
+    { id: 'CNC-2', name: 'CNC Tezgah 2', color: '#5B8DEF' },
     { id: 'Assembly', name: 'Montaj Hattı', color: '#10b981' },
 ] as const;
 
@@ -223,7 +223,7 @@ export function getOrdersByMachine(orders: Order[]): Record<MachineId, Order[]> 
  */
 export function getMachineColor(machineId: MachineId): string {
     const machine = MACHINES.find(m => m.id === machineId);
-    return machine?.color || '#6b7280';
+    return machine?.color || '#7D838E';
 }
 
 /**
