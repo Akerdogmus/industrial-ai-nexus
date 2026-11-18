@@ -130,17 +130,17 @@ const ScanAnimation: React.FC<{ onComplete: () => void }> = ({ onComplete }) => 
             const trailW = Math.min(100, x);
             if (trailW > 0) {
                 const trail = ctx.createLinearGradient(x - trailW, 0, x, 0);
-                trail.addColorStop(0, 'rgba(0,255,180,0)');
-                trail.addColorStop(1, 'rgba(0,255,180,0.12)');
+                trail.addColorStop(0, 'rgba(63, 182, 139,0)');
+                trail.addColorStop(1, 'rgba(63, 182, 139,0.12)');
                 ctx.fillStyle = trail;
                 ctx.fillRect(x - trailW, 0, trailW, canvas.height);
             }
 
             // Main laser beam
             const beam = ctx.createLinearGradient(x - 4, 0, x + 4, 0);
-            beam.addColorStop(0, 'rgba(0,255,180,0)');
-            beam.addColorStop(0.5, 'rgba(0,255,180,0.95)');
-            beam.addColorStop(1, 'rgba(0,255,180,0)');
+            beam.addColorStop(0, 'rgba(63, 182, 139,0)');
+            beam.addColorStop(0.5, 'rgba(63, 182, 139,0.95)');
+            beam.addColorStop(1, 'rgba(63, 182, 139,0)');
             ctx.fillStyle = beam;
             ctx.fillRect(x - 4, 0, 8, canvas.height);
 

@@ -53,7 +53,7 @@
 .input-group input:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 0 3px rgba(212, 70, 111, 0.2);
 }
 
 .btn-calculate {
@@ -93,7 +93,7 @@
 .roi-total-result {
     text-align: center;
     padding: 2rem;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(212, 70, 111, 0.1) 100%);
     border-radius: var(--border-radius);
     border: 1px solid rgba(16, 185, 129, 0.2);
 }
@@ -127,7 +127,7 @@
     justify-content: center;
     gap: 1rem;
     padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(212, 70, 111, 0.1) 0%, rgba(242, 184, 75, 0.1) 100%);
     border-radius: var(--border-radius);
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
@@ -219,7 +219,7 @@
 
 .machine-card.clickable.selected {
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 0 2px rgba(212, 70, 111, 0.2);
 }
 
 .section-hint {
@@ -250,7 +250,7 @@
 .ai-recommendation {
     margin-top: 0.75rem;
     padding: 0.75rem;
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(212, 70, 111, 0.1);
     border-radius: var(--border-radius-sm);
     font-size: 0.85rem;
     border-left: 3px solid var(--accent-primary);
@@ -354,7 +354,7 @@
 }
 
 .scenario-card:hover {
-    border-color: rgba(59, 130, 246, 0.3);
+    border-color: rgba(212, 70, 111, 0.3);
 }
 
 .scenario-card.selected {
@@ -583,7 +583,7 @@
 .sidebar-compact {
     width: 280px;
     min-width: 280px;
-    background: linear-gradient(180deg, #1a1f2e 0%, #0f1419 100%);
+    background: linear-gradient(180deg, #1A1D23 0%, #121418 100%);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
@@ -857,7 +857,7 @@
 
 /* Chart Section */
 .chart-section {
-    background: rgba(17, 24, 39, 0.5);
+    background: rgba(18, 20, 24, 0.5);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 1.5rem;
@@ -881,7 +881,7 @@
 }
 
 .chart-container {
-    background: #0f172a;
+    background: #121418;
     border-radius: 8px;
     padding: 1rem;
 }
@@ -914,7 +914,7 @@
 }
 
 .legend-line.dashed.blue {
-    background: repeating-linear-gradient(90deg, #3b82f6 0, #3b82f6 5px, transparent 5px, transparent 10px);
+    background: repeating-linear-gradient(90deg, #D4466F 0, #D4466F 5px, transparent 5px, transparent 10px);
 }
 
 .legend-area.red {
@@ -926,7 +926,7 @@
 
 /* Model Section */
 .model-section {
-    background: rgba(17, 24, 39, 0.5);
+    background: rgba(18, 20, 24, 0.5);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 1.5rem;
@@ -977,9 +977,9 @@
 .model-explanation {
     margin-top: 1rem;
     padding: 0.75rem;
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(212, 70, 111, 0.1);
     border-radius: 8px;
-    border-left: 3px solid #3b82f6;
+    border-left: 3px solid #D4466F;
 }
 
 .model-explanation p {
@@ -1052,7 +1052,7 @@
 
 .reset-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(212, 70, 111, 0.3);
 }
 
 

@@ -1,9 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    BrainCircuit, Clock, Target, Activity, AlertTriangle,
-    CheckCircle2, Package, TrendingUp, Zap
-} from 'lucide-react';
+import { BrainCircuit, Clock, Target, Activity, AlertTriangle, CheckCircle2, Package, TrendingUp, Zap, CalendarDays } from 'lucide-react';
 import {
     MACHINES,
     WORK_START,
@@ -520,7 +517,7 @@ const ProductionPlanningModule: React.FC<ProductionPlanningModuleProps> = ({ onC
                 {/* Header */}
                 <div className="modal-header">
                     <div>
-                        <h2>📅 Üretim Planlama</h2>
+                        <h2><CalendarDays size={24} /> Üretim Planlama</h2>
                         <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                             Sipariş Tetrisi · AI ile Çizelge Optimizasyonu
                         </div>

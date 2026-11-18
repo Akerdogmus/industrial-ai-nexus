@@ -81,7 +81,7 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
             <group position={[0, -0.1, 0]}>
                 <mesh receiveShadow position={[0, 0, 0]}>
                     <boxGeometry args={[4, 0.2, 3]} />
-                    <meshStandardMaterial color="#1e293b" metalness={0.5} roughness={0.7} />
+                    <meshStandardMaterial color="#1A1D23" metalness={0.5} roughness={0.7} />
                 </mesh>
                 {/* Safety Stripes (Yellow/Black) */}
                 <mesh position={[0, 0.11, 1.4]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -103,23 +103,23 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
                 {/* Main Block */}
                 <mesh castShadow receiveShadow>
                     <boxGeometry args={[3, 2.2, 1.8]} />
-                    <meshStandardMaterial color="#e2e8f0" metalness={0.4} roughness={0.3} />
+                    <meshStandardMaterial color="#ECEDEF" metalness={0.4} roughness={0.3} />
                 </mesh>
 
                 {/* Darker Side Panels */}
                 <mesh position={[1.51, 0, 0]}>
                     <boxGeometry args={[0.1, 2, 1.6]} />
-                    <meshStandardMaterial color="#475569" metalness={0.6} roughness={0.4} />
+                    <meshStandardMaterial color="#3A3F48" metalness={0.6} roughness={0.4} />
                 </mesh>
                 <mesh position={[-1.51, 0, 0]}>
                     <boxGeometry args={[0.1, 2, 1.6]} />
-                    <meshStandardMaterial color="#475569" metalness={0.6} roughness={0.4} />
+                    <meshStandardMaterial color="#3A3F48" metalness={0.6} roughness={0.4} />
                 </mesh>
 
                 {/* Top Cap */}
                 <mesh position={[0, 1.15, 0]}>
                     <boxGeometry args={[3.1, 0.2, 1.9]} />
-                    <meshStandardMaterial color="#334155" metalness={0.6} />
+                    <meshStandardMaterial color="#2E333C" metalness={0.6} />
                 </mesh>
             </group>
 
@@ -128,7 +128,7 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
                 {/* Window Frame */}
                 <mesh>
                     <boxGeometry args={[2.2, 1.4, 0.1]} />
-                    <meshStandardMaterial color="#1e293b" metalness={0.8} />
+                    <meshStandardMaterial color="#1A1D23" metalness={0.8} />
                 </mesh>
                 {/* Glass */}
                 <mesh position={[0, 0, 0.02]}>
@@ -150,12 +150,12 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
                 {/* Spindle Head */}
                 <mesh position={[0, 0.2, 0]}>
                     <boxGeometry args={[0.6, 0.8, 0.6]} />
-                    <meshStandardMaterial color="#64748b" metalness={0.8} />
+                    <meshStandardMaterial color="#7D838E" metalness={0.8} />
                 </mesh>
                 {/* Rotating Spindle */}
                 <mesh ref={spindleRef} position={[0, -0.4, 0]}>
                     <cylinderGeometry args={[0.15, 0.1, 0.4, 32]} />
-                    <meshStandardMaterial color="#94a3b8" metalness={1} roughness={0.1} />
+                    <meshStandardMaterial color="#A9AEB8" metalness={1} roughness={0.1} />
                 </mesh>
                 {/* Cutting Tool */}
                 <mesh position={[0, -0.7, 0]}>
@@ -166,7 +166,7 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
                 {/* Workpiece on Table */}
                 <mesh position={[0, -1.2, 0]}>
                     <boxGeometry args={[0.8, 0.3, 0.8]} />
-                    <meshStandardMaterial color="#9ca3af" metalness={0.5} />
+                    <meshStandardMaterial color="#A9AEB8" metalness={0.5} />
                 </mesh>
                 <mesh position={[0, -1.0, 0]}>
                     <cylinderGeometry args={[0.3, 0.3, 0.2, 32]} />
@@ -180,12 +180,12 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
                 {/* Stand */}
                 <mesh position={[0, -0.5, 0]}>
                     <cylinderGeometry args={[0.05, 0.05, 1, 8]} />
-                    <meshStandardMaterial color="#1e293b" />
+                    <meshStandardMaterial color="#1A1D23" />
                 </mesh>
                 {/* Panel Box */}
                 <mesh position={[0, 0.2, 0]}>
                     <boxGeometry args={[0.1, 0.8, 1]} />
-                    <meshStandardMaterial color="#0f172a" metalness={0.5} />
+                    <meshStandardMaterial color="#121418" metalness={0.5} />
                 </mesh>
                 {/* Screen Glow */}
                 <mesh position={[0.06, 0.2, 0]} rotation={[0, Math.PI / 2, 0]}>
@@ -198,7 +198,7 @@ function IndustrialMachine({ status }: { status: 'normal' | 'warning' | 'critica
             <group position={[1.2, 2.3, 0.5]}>
                 <mesh position={[0, -0.1, 0]}>
                     <cylinderGeometry args={[0.02, 0.02, 0.2, 8]} />
-                    <meshStandardMaterial color="#94a3b8" />
+                    <meshStandardMaterial color="#A9AEB8" />
                 </mesh>
                 {/* Red */}
                 <mesh position={[0, 0.2, 0]}>
@@ -244,7 +244,7 @@ const MachineModel3D: React.FC<MachineModel3DProps> = ({ status, height = '250px
             width: '100%',
             height,
             minHeight: '180px',
-            background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+            background: 'linear-gradient(135deg, #1A1D23 0%, #121418 100%)',
             borderRadius: '12px',
             overflow: 'hidden',
             boxShadow: 'inset 0 0 40px rgba(0,0,0,0.6)'
@@ -270,11 +270,11 @@ const MachineModel3D: React.FC<MachineModel3DProps> = ({ status, height = '250px
                     color="#e0f2fe"
                     castShadow
                 />
-                <pointLight position={[-3, 2, -3]} intensity={1} color="#3b82f6" />
+                <pointLight position={[-3, 2, -3]} intensity={1} color="#D4466F" />
 
                 {/* Environment & Fog */}
                 <Environment preset="warehouse" />
-                <fog attach="fog" args={['#0f172a', 6, 22]} />
+                <fog attach="fog" args={['#121418', 6, 22]} />
                 <ContactShadows
                     position={[0, -1.65, 0]}
                     opacity={0.4}
